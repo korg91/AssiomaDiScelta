@@ -1,0 +1,1651 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage{amsmath}
+\usepackage{bbm}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{longtable}
+\usepackage{amsthm}
+\usepackage{amscd}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[hyphens]{url}
+\usepackage[scale=3]{ccicons}  % per le icone creative commons
+\usepackage{hyperref}  % per i link nel pdf
+\usepackage[rmargin=3.0cm,lmargin=3.0cm]{geometry}
+%\usepackage{frontesp}  % prima pagina; il pacchetto frontesp.sty si trova nella stessa cartella del file .tex (deve essere adattato a mano)
+\usepackage{setspace}  % per l'interlinea
+\usepackage[italian]{babel}  % per sillabazione
+\usepackage[all]{xy} %diagrammi di funzioni
+\usepackage{xspace} %per assicurare la corretta gestione degli spazi finali quando uso e.g. \AC. NB: sarebbe meglio trovare un'altra soluzione...cfr. http://tex.stackexchange.com/questions/15220/no-space-present-after-ensuremath
+
+
+
+\theoremstyle{definition}
+\newtheorem{teo}{Teorema}[section]  % resetta la numerazione dei teoremi per ogni capitolo
+\newtheorem{defn}[teo]{Definizione}  % la numerazione delle definizioni dipende da quella dei teoremi
+\newtheorem{es}[teo]{Esempio}  % idem
+\newtheorem{oss}[teo]{Osservazione}  % idem
+\newtheorem{prop}[teo]{Proposizione}  % idem
+\newtheorem{lemma}[teo]{Lemma}  % idem
+\newtheorem{corollario}[teo]{Corollario}  % idem
+
+%%% inizio comandi per stile per teoremi: "numero. Titolo" %%%
+\newtheoremstyle{num.custom-title}
+  {\topsep}   % ABOVESPACE
+  {\topsep}   % BELOWSPACE
+  {\normalfont}  % BODYFONT
+  {0pt}       % INDENT (empty value is the same as 0pt)
+  {\bfseries} % HEADFONT
+  {}         % HEADPUNCT
+  {5pt plus 1pt minus 1pt} % HEADSPACE
+  {\thmnumber{#2.}\thmnote{ #3}}
+  
+\theoremstyle{num.custom-title}  
+\newtheorem{teo_custom-title}[teo]{} % per usarlo basta \begin{teo_custom-title}[<Titolo teorema>] (usa automaticamente la numerazione di [teo])
+%%% fine comandi per stile per teoremi: "numero. Titolo" %%%
+
+
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\ran}{ran}
+\DeclareMathOperator{\orb}{orb}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\A}{\mathcal{A}}
+\DeclareMathOperator{\B}{\mathcal{B}}
+\DeclareMathOperator{\U}{\mathcal{U}}
+\DeclareMathOperator{\PP}{\mathcal{P}}
+\DeclareMathOperator{\LL}{\mathcal{L}}
+\DeclareMathOperator{\Hrtg}{\text{Hrtg}}
+\DeclareMathOperator{\Ord}{\text{Ord}}
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\M}{\mathfrak{M}}
+\DeclareMathOperator{\PPP}{\mathbb{P}}
+\DeclareMathOperator{\a01}{\{0,1\}^{\star}}
+\DeclareMathOperator{\imp}{\Rightarrow}
+\DeclareMathOperator{\sm}{\setminus}
+\DeclareMathOperator{\sse}{\subseteq}
+
+
+\newcommand{\AC}{\ensuremath{\mathsf{AC}}\xspace}
+\newcommand{\CC}{\ensuremath{\mathsf{CC}}\xspace}
+\newcommand{\DC}{\ensuremath{\mathsf{DC}}\xspace}
+\newcommand{\ZF}{\ensuremath{\mathsf{ZF}}\xspace}
+\newcommand{\ZFC}{\ensuremath{\mathsf{ZFC}}\xspace}
+\newcommand{\LS}{\ensuremath{\mathsf{LS}}\xspace}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} %per la prima pagina
+
+\renewcommand{\phi}{\varphi}
+\renewcommand{\U}{\mathfrak{U}}
+
+
+%%%% INIZIO COMANDI PER EQUIVALENZE %%%%
+\newcommand{\Implies}[2]{$\text{\ref{statement#1}}\!\implies\!\text{\ref{statement#2}}$}% X => Y
+\newcommand{\punto}[1]{\item \label{statement#1}}
+
+
+\newenvironment{equivalence}
+    {\begin{enumerate}[label=(\arabic*),ref=(\arabic*)]
+    }
+    { 
+	\end{enumerate}
+    }
+%%%% FINE COMANDI PER EQUIVALENZE %%%
+
+
+
+% Interlinea 1.5
+%\onehalfspacing  
+
+
+%per le citazioni
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
+  \hbox{}\nobreak\hfil(#1)%
+  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+
+\newsavebox\mybox
+\newenvironment{aquote}[1]
+  {\savebox\mybox{#1}\begin{quote}}
+  {\signed{\usebox\mybox}\end{quote}}
+
+%disabilita colore link
+\hypersetup{%
+    pdfborder = {0 0 0}
+}
+
+\begin{document}
+
+
+%%%%%%%% INIZIO PRIMA PAGINA %%%%%%%%%
+\pagenumbering{gobble}
+\begin{titlepage}
+\begin{center}
+
+% Upper part of the page. The '~' is needed because \\
+% only works if a paragraph has started.
+\includegraphics[width=0.25\textwidth]{./logo.png}~\\[1cm]
+
+\textsc{\LARGE Università di Torino}\\[1.5cm]
+
+%\textsc{\Large Final year project}\\[0.5cm]
+
+% Title
+\HRule \\[0.4cm]
+{ \huge \bfseries L'Assioma di Scelta \\[0.4cm] }
+
+\HRule \\[1.5cm]
+
+% Author and supervisor
+\begin{minipage}{0.4\textwidth}
+\begin{center} \large
+\textsc{Andrea Gadotti}
+\end{center}
+\end{minipage}
+
+
+\vfill
+
+% Bottom of the page
+{\large \today}
+
+\end{center}
+\end{titlepage}
+
+%%%%%%%% FINE PRIMA PAGINA %%%%%%%%%
+
+
+
+%%%%%%%% INIZIO LICENZA %%%%%%%%%
+
+
+\null
+\vfill
+\noindent \ccbysa  \\
+\\
+\textbf{Quest'opera e il relativo sorgente \LaTeX \ sono distribuiti con Licenza Creative Commons Attribuzione - Condividi allo stesso modo 3.0 Italia.} \\
+Per leggere una copia della licenza visita il sito web \url{http://creativecommons.org/licenses/by-sa/3.0/it/} o spedisci una lettera a Creative Commons, 171 Second
+Street, Suite 300, San Francisco, California, 94105, USA.\\
+\\
+\emph{Questo file PDF e il relativo sorgente \LaTeX \ sono disponibili all'indirizzo\\
+\emph{\url{http://github.com/korg91/AssiomaDiScelta}}. Eventuali versioni più aggiornate saranno pubblicate allo stesso indirizzo.}\\
+Questo lavoro può essere modificato e ridistribuito interamente o in parte nei limiti imposti dalla licenza, con l'obbligo di includere questa nota e pubblicare l'intero sorgente \LaTeX \ dell'opera derivata.
+
+%%%%%%%% FINE LICENZA %%%%%%%%%
+
+
+
+\newpage
+
+\tableofcontents
+
+
+\chapter*{Introduzione} 
+\addcontentsline{toc}{chapter}{Introduzione}
+
+\pagenumbering{roman}
+
+
+L'Assioma di Scelta (brevemente \AC) viene utilizzato per la prima volta, in modo implicito e del tutto inconsapevole, nella teoria dei numeri cardinali creata da Cantor. Infatti, nel tentativo di determinare la cardinalità del continuo, Cantor suppone che l'insieme dei numeri reali possa venire bene ordinato. La prima vera allusione si trova invece in uno scritto di equazioni differenziali ordinarie del 1890 a opera di Giuseppe Peano il quale, consapevole di non poter applicare infinite volte una regola arbitraria che ad ogni classe associa un suo elemento, considera l'idea di affermare una regola precisa che permetta ciò. Nel 1904 Zermelo formula proprio questo principio, che prende il nome di Assioma di Scelta, e dimostra grazie ad esso che ogni insieme può essere bene ordinato e, in particolare, l'assunzione di Cantor. In altre parole Zermelo postula l'esistenza di una cosiddetta ``funzione di scelta'' su ogni famiglia di insiemi non vuoti, ma non dà nessuna idea sul come costruirla e per questo solleva le critiche dei matematici costruttivisti, per i quali il procedimento con cui si dimostra l'esistenza di un oggetto matematico deve permettere di esibire esplicitamente un testimone. La disputa sull'accettare o meno l'Assioma di Scelta ha fine verso la metà del Novecento con la dimostrazione, ad opera di Cohen, della sua indipendenza dagli altri assiomi della teoria di Zermelo-Fraenkel (brevemente: \ZF).
+
+Nel Capitolo 1 introduciamo l'Assioma di Scelta e ne presentiamo alcune formulazioni alternative molto diffuse in letteratura. Dimostriamo poi l'equivalenza con alcuni principi matematici estremamente importanti, come il Lemma di Zorn. Infine presentiamo un esempio di utilizzo ``nascosto'' di \AC e due esempi di utilizzo superfluo.
+
+Nel Capitolo 2 cerchiamo di fare matematica senza \AC. Sarà da subito chiaro al lettore che questa scelta è davvero scomoda, dato che ci si trova di fronte a veri e propri \emph{disastri}. Noi ne trattiamo alcuni riguardanti insiemi finiti, aritmetica cardinale, ordini, spazi vettoriali, spazi compatti.
+
+Nel Capitolo 3 presentiamo un risultato affascinante e molto conosciuto: il Paradosso di Banach-Tarski, che essenzialmente afferma la possibilità di usare \AC per ``duplicare'' una palla in $\R^3$. Non entreremo nei dettagli tecnici del teorema; offriremo piuttosto una panoramica generale dell'idea che sta alla base del risultato, passando anche dal Paradosso di Hausdorff.
+
+Nel Capitolo 4 introduciamo un assioma strettamente più debole di \AC: l'Assioma delle Scelte Dipendenti. Mostriamo poi un risultato non molto conosciuto: il Teorema di Löwenheim-Skolem all'ingiù è equivalente all'Assioma delle Scelte Dipendenti. Accenniamo poi al Paradosso di Skolem.
+
+Nel Capitolo 5 proponiamo un divertente puzzle che mostra un'altra conseguenza controintuitiva di \AC relativamente alla Teoria della Probabilità.
+
+
+
+
+
+
+\chapter*{Nozioni di base}
+
+\addcontentsline{toc}{chapter}{Nozioni di base}
+
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+%DEFINIRE BUON ORDINE, ORDINALE E DIRE CHE ESSERE BUON ORDINE SIGNIFICA ESSERE IN BIEZIONE CON UN ORDINALE
+%PARLARE DELL'INDUZIONE TRANSFINITA e del numero di Hartogs (PER "AC iff WOT")
+%OSSERVARE CHE \alpha={\beta | \beta < \alpha} (sempre per "AC iff WOT")
+%cardinalità e un attimo di aritmetica cardinale (cosa significa il |A|+|B|, etc, e \aleph_0. Anche \aleph_\alpha se si vuole tenere l'osservazione verso la fine della sezione sulla finitezza)
+
+Elenchiamo di seguito (senza dimostrazione) alcuni concetti che utilizzeremo nel corso del nostro lavoro. Purtroppo i prerequisiti necessari per una comprensione completa sarebbero troppi da trattare qui. Per questo, l'elaborato è rivolto principalmente a coloro che conoscono già i concetti di base della Logica Matematica. Nonostante questo, crediamo che, dopo aver letto questa sezione, una grande parte dell'elaborato risulterà comprensibile a qualunque matematico.
+
+\section{Cardinalità e ordinali}
+
+\begin{defn}
+Siano $A, B$ due insiemi. Diciamo che $A$ \emph{domina} $B$ e scriviamo $B \preceq A$ se esiste una funzione iniettiva da $B$ in $A$. Diciamo che $A$ e $B$ sono \emph{equipotenti} e scriviamo $A \approx B$ se esiste una biezione da $A$ in $B$.
+\end{defn}
+
+È chiaro che la relazione di equipotenza è una relazione di equivalenza. Il seguente importante teorema assicura che la relazione di dominazione si comporta in modo simile a un ordine:
+
+\begin{teo}[Schröder-Bernstein]
+Siano $A,B$ insiemi. Se $A \preceq B$ e $B \preceq A$ allora $A \approx B$.
+\end{teo}
+
+Se due insiemi $A$ e $B$ sono equipotenti, diremo spesso che hanno la medesima \emph{cardinalità}, e scriveremo $|A|=|B|$. Se $A \preceq B$ scriveremo anche $|A| \leq |B|$. Quindi $\leq$ è una relazione d'ordine sulle cardinalità.
+
+\begin{teo}[Cantor]
+Sia $A$ un insieme. Allora $A \preceq \PP(A)$ ma $A \not\approx \PP(A)$.
+\end{teo}
+
+\begin{defn}
+Un insieme $X$ si dice \emph{transitivo} se $x \in X \imp x \subseteq X$. Un \emph{ordinale} è un insieme transitivo tale che ogni suo elemento è transitivo. La collezione\footnote{Usiamo un termine un po' confuso come ``collezione'' perché stiamo in realtà parlando di una classe propria, non di un insieme.} di tutti gli ordinali si indica con $\Ord$.
+\end{defn}
+
+Gli ordinali si indicano di solito con lettere greche minuscole come $\alpha, \beta,...$ Si vede subito che ogni elemento di un ordinale è a sua volta un ordinale. Inoltre si dimostra che l'appartenenza insiemistica $\in$ è un ordine lineare sulla famiglia degli ordinali, ed è anche un buon ordine; talvolta scriveremo infatti $\alpha < \beta$ anziché $\alpha \in \beta$. È immediato allora che dato un qualsiasi ordinale $\alpha$ si ha $\alpha=\{\beta \mid \beta < \alpha\}$. È chiaro che se un insieme è in biezione con un ordinale è bene ordinabile; si dimostra che vale anche il viceversa. Quindi possiamo vedere gli ordinali anche come rappresentanti canonici di buoni ordini a meno di isomorfismo.
+
+Si dimostra che ogni $n \in \N$ è un ordinale, così come $\N$ stesso. Inoltre è il più piccolo\footnote{rispetto all'ordine dato dall'appartenenza.} ordinale infinito. In logica spesso si usa la lettera greca $\omega$ per indicare $\N$.
+
+\begin{defn}
+Un insieme $X$ si dice \emph{numerabile} se è finito o in biezione con $\omega$, ovvero se $X \preceq \omega$.
+\end{defn}
+
+\noindent\textbf{Nota.} Talvolta useremo il termine ``numerabile'' per dire proprio $X \approx \omega$, senza renderlo esplicito. Questi casi risulteranno evidenti dal contesto.\\
+
+Uno strumento particolarmente utile è il seguente:
+
+\begin{defn}
+Il \emph{numero di Hartogs} di un insieme $X$, indicato con $\Hrtg(X)$, è il più piccolo ordinale che non si inietta in $X$. 
+\end{defn}
+
+È chiaro che $\Hrtg(X)$ esiste per ogni insieme $X$. Inoltre, se $\alpha$ è un ordinale, solitamente $\Hrtg(\alpha)$ si denota con $\alpha^+$.
+
+
+
+\subsection{Induzione transfinita}
+
+L'induzione sui numeri naturali è ben nota ad ogni matematico. In realtà si può fare induzione su qualsiasi buon ordine. Di seguito enunciamo l'\emph{induzione transfinita} su $\Ord$.
+
+\begin{teo}
+Sia $\Omega=\Ord$ oppure $\Omega \in \Ord$. Sia $I \subseteq \Omega$. Supponiamo che 
+\[
+\big(\forall \beta \in \Omega \, (\beta < \alpha \imp \beta \in I)\big) \imp \alpha \in I,
+\]
+per ogni $\alpha \in \Omega$. Allora $I=\Omega$.
+\end{teo}
+
+
+\section{Logica del prim'ordine}
+
+Vogliamo presentare alcuni concetti di base della logica del prim'ordine. Abbiamo scelto di includere questa rapida rassegna al fine di rendere più comprensibile la lettura di questo elaborato anche agli studenti di matematica che non hanno mai studiato la logica del prim'ordine. Da un punto di vista formale, lo sviluppo dei concetti basilari della logica del prim'ordine non è sempre immediato e richiede un po' di tempo. Fortunatamente però, le idee intuitive che ne stanno alla base sono quasi sempre piuttosto chiare. Per questo, considerato anche lo scopo puramente pragmatico di questa sezione, non saremo molto formali né precisi, e punteremo piuttosto a rendere i concetti quanto più chiari e accessibili possibile.
+
+
+\subsection{Connettivi}
+
+Sono ben noti a qualsiasi matematico i \emph{connettivi logici}
+\[
+\neg \;\;\;\;\; \vee \;\;\;\;\; \wedge \;\;\;\;\; \imp \;\;\;\;\; \Leftrightarrow
+\]
+e i \emph{quantificatori}
+\[
+\exists \;\;\;\;\; \forall
+\]
+
+I connettivi e i quantificatori si dicono \emph{costanti logiche}. L'espressione ``$\exists x A$'' significa ``c'è un $x$ tale che vale $A$'', mentre ``$\forall x A$'' significa ``per ogni $x$ vale $A$''. Quindi ad esempio
+\[
+\exists x \neg A \imp \neg (\forall x A)
+\]
+significa ``se esiste un $x$ tale che $A$ non vale, allora non è vero che $A$ vale per qualsiasi $x$''.
+
+
+\subsection{Linguaggi}
+
+Un \emph{linguaggio} $L$ del prim'ordine consiste dei seguenti oggetti:
+\begin{itemize}
+\item la parentesi aperta ( e la parentesi chiusa )
+\item i simboli $\neg, \vee, \wedge, \imp, \Leftrightarrow, \exists, \forall, =$;
+\item una lista infinita di simboli dette \emph{variabili}
+\[
+v_0, v_1, v_2,...
+\]
+Le lettere $x,y,z,...$ indicano una generica variabile $v_n$;
+\item dei simboli di costante $c,d,e,...$;
+\item dei simboli di funzione $g,g,h,...$;
+\item dei simboli di predicato (o di relazione) $P,Q,R,...$
+\end{itemize}
+Ad ogni simbolo di funzione e di predicato è associato un numero naturale detto \emph{arietà} del simbolo, che indica il numero di parametri ai quali il simbolo deve essere applicato. I simboli di arietà 1, 2, 3 si dicono rispettivamente unari, binari, ternari. Spesso l'arietà si evince dal contesto.\\
+
+Un esempio di predicato unario è $T(x)$, il predicato che dice ``$x$ è un triangolo rettangolo''. Un esempio ben noto di predicato binario è il simbolo $<$ di ``minore''. Quindi $<\!\!(x,y)$ significa che $x$ è minore di $y$. Un esempio di funzione binaria è il simbolo $+$ di somma. Quindi $+(x,y)$ è l'operazione somma applicata a $x$ e $y$. Finora abbiamo utilizzato la notazione \emph{prefissa}. Spesso i simboli binari vengono utilizzati con notazione \emph{infissa}; scriveremo quindi $x<y$ e $x+y$ anziché $<\!\!(x,y)$ e $+(x,y)$.
+
+I simboli di costante, funzione e predicato si dicono simboli non logici e caratterizzano il linguaggio in questione. Per i nostri scopi possiamo supporre per semplicità che siano sempre in numero finito. Con abuso di notazione definiremo un certo linguaggio $L$ come $L=\{f_1,...,f_n,R_1,...,R_m, c_1,...,c_k\}$ con $n,m,k \geq 0$ e $f_i$, $R_i$, $c_i$ simboli di funzione, predicato e costante rispettivamente. Quindi ad esempio scriveremo $L=\{+,\cdot,<,0,1\}$.
+
+\subsection{Formule}
+
+Dato un linguaggio $L$ possiamo costruire le $L$-formule, ovvero espressioni scritte a partire dalle costanti logiche e dai simboli non logici di $L$. Facciamo qualche esempio:
+\begin{itemize}
+\item Sia $L_1=\{\cdot,\,0,1\}$. Un esempio di $L_1$-formula è $\phi_1$ data da
+\[
+\forall x (x \neq 0 \imp \exists y (x \cdot y = 1)).
+\]
+\item Sia $L_2=\{T,L,A\}$ con $T,L,A$ predicati unari. Un esempio di $L_2$-formula è $\phi_2$ data da 
+\[
+T(x) \imp (L(x) \Leftrightarrow A(x)).
+\]
+La formula $\phi_2$ formalmente è solo una sequenza di simboli. Ma se immaginiamo $T(x)$ come la frase ``$x$ è un triangolo'', $L(x)$ come ``$x$ è equilatero'' e $A(x)$ come ``$x$ è equiangolo'', allora possiamo vedere $\phi_2$ come una \emph{formalizzazione} della frase ``se $x$ è un triangolo, allora $x$ è equilatero se e solo se è equiangolo''.
+\item Sia $L_3=\{<,\text{Pr}\}$ con Pr predicato unario. Sia $\phi_3$ la $L_3$-formula
+\[
+\forall x \exists y (x<y \wedge \text{Pr}(y)).
+\]
+Se immaginiamo $<$ come un ordine e Pr$(x)$ come l'espressione ``$x$ è primo'', allora $\phi_3$ afferma che per ogni elemento esiste un elemento maggiore che è primo. Se interpretiamo questa formula nell'insieme $\N$ dei numeri naturali, otteniamo una formulazione del Teorema di Euclide sull'infinità dei numeri primi.
+\item Sia $L_4=\{+,-,0\}$. Un esempio di $L_4$-formula è $\phi_4$ data da
+\[
+\forall x (x+x=0).
+\]
+\end{itemize}
+
+\subsection{Strutture}
+
+Come abbiamo già accennato, le formule sono semplicemente stringhe di simboli. La loro utilità matematica risulta chiara quando esse vengono \emph{interpretate} in qualche \emph{struttura}.
+
+\begin{defn}
+Sia $L=\{f_1,...,f_n,R_1,...,R_m, c_1,...,c_k\}$ un linguaggio con $n,m,k \geq 0$ e $f_i$, $R_i$, $c_i$ simboli di funzione, predicato e costante rispettivamente. Una $L$-struttura consiste di:
+\begin{itemize}
+\item un insieme non vuoto $M$ detto \emph{universo} della struttura;
+\item degli elementi privilegiati $c_i^M$ di $M$ per ogni $1 \leq i \leq k$;
+\item delle funzioni $f_i^M : M^{\text{ar}(f_i)} \to M$ dove $\text{ar}(f_i)$ è l'arietà associata a $f_i$ nel linguaggio $L$ in questione, per ogni $1 \leq i \leq n$;
+\item dei sottoinsiemi $R_i^M \sse M^{\text{ar}(R_i)}$ dove $\text{ar}(R_i)$ è l'arietà associata a $R_i$ nel linguaggio $L$ in questione, per ogni $1 \leq i \leq m$.
+\end{itemize}
+\textbf{Nota.} Ribadiamo che gli $f_i,R_i,c_i$ sono solamente dei simboli (eventualmente con un'arietà associata). Diversamente, gli $f_i^M,R_i^M,c_i^M$ sono rispettivamente funzioni, relazioni ed elementi di $M$.
+\end{defn}
+
+\begin{es} Consideriamo $L_1$, $L_3$ e $L_4$ come sopra.
+\begin{itemize}
+\item $(\N,\cdot,0,1), (\R,\cdot,0,1), (\mathcal{M}_3,\cdot,0,1)$, con $\mathcal{M}_3$ l'insieme delle matrici $3 \times 3$ su $\R$, sono tutte $L_1$-strutture se interpretiamo $\cdot$ come il prodotto standard sull'universo in questione e le costanti $0,1$ in modo ovvio;
+\item $(\N,<,$Pr$)$ è una $L_3$-struttura se interpretiamo $<$ come l'ordine standard su $\N$ e Pr come l'insieme dei numeri naturali primi;
+\item $(\Z,+,-,0)$ e $(\Z/2\Z,+,-,0)$ sono $L_4$ strutture, se interpretiamo le operazioni e lo $0$ nel modo standard rispetto alla struttura considerata.
+\end{itemize}
+\end{es}
+
+\begin{defn}
+Sia $\phi$ una formula di qualche linguaggio. Una variabile che compare in $\phi$ si dice \emph{libera} se non è quantificata in $\phi$, altrimenti si dice vincolata. Una formula in cui tutte le variabili sono vincolate si dice \emph{formula chiusa} o \emph{enunciato}. Se $\phi$ è una formula con $x_1,...,x_n$ variabili libere, scriveremo spesso $\phi(x_1,...,x_n)$.
+\end{defn}
+
+\begin{es}
+$\phi_1$ è una formula chiusa, come anche $\phi_3$ e $\phi_4$. Al contrario, $\phi_2$ non è chiusa perché la variabile $x$ non è vincolata. Quindi $\phi_2 = \phi_2(x)$.
+\end{es}
+
+\begin{defn}
+Sia $L$ un linguaggio, $M$ una $L$-struttura e $\sigma$ un $L$-enunciato. Diciamo che $M$ \emph{soddisfa} $\sigma$, in simboli $M \models \sigma$, se $\sigma$ vale in $M$ (rispetto all'interpretazione dei simboli di $L$ in $M$ che abbiamo scelto).\footnote{La definizione è volutamente ``confusa'', dato che non abbiamo definito cosa significa che un enunciato ``vale'' in una struttura. In effetti una definizione rigorosa della nozione di ``soddisfazione'' richiede un po' di lavoro. Tuttavia riteniamo che il concetto intuitivo sia chiaro e chiediamo quindi al lettore di accontentarsi di questa ``definizione'', osservando anche gli esempi che seguono.}
+\end{defn}
+
+\begin{es}\
+\begin{itemize}
+\item $(\R,\cdot,0,1)$ soddisfa $\phi_1$, dato che $\R$ è un campo. Al contrario, $(\N,\cdot,0,1) \not\models \phi_1$, dato che l'enunciato è vero solo per $x=1$. Lo stesso vale per $(\mathcal{M}_3,\cdot,0,1)$, dato che esistono matrici non invertibili. Si osservi comunque che interpretando invece il simbolo $\cdot$ come l'operazione somma $+$ di $\mathcal{M}_3$, l'enunciato diventa vero. Tuttavia, nella pratica la scelta ``tipografica'' dei simboli del linguaggio rispecchia l'uso che vogliamo farne poi interpretandoli nelle strutture. Quindi difficilmente si troverà un simbolo come $\cdot$ interpretato come una qualche ``somma''.
+\item $(\N,<,\text{Pr})$ soddisfa ovviamente $\phi_3$ (come già detto, è il Teorema di Euclide sui numeri primi).
+\item $(\Z/2\Z,+,-,0)$ soddisfa $\phi_4$, che infatti nel nostro caso afferma che $\Z/2\Z$ ha ordine $2$. Ovviamente $(\Z,+,-,0)$ non soddisfa $\phi_4$.
+\end{itemize}
+\end{es}
+
+
+\subsection{Teorie e modelli}
+
+\begin{defn}
+Sia $L$ un linguaggio. Una $L$\emph{-teoria} (del prim'ordine) è un insieme di $L$-enunciati. Se abbiamo una teoria $T$, spesso chiamiamo \emph{assiomi} gli enunciati di $T$.
+\end{defn}
+
+\begin{defn}
+Sia $L$ un linguaggio e sia $T$ una $L$-teoria. Una $L$-struttura si dice \emph{modello} per $T$ se soddisfa tutti gli assiomi di $T$. Con un leggero abuso di notazione, in questo caso scriveremo $M \models T$.
+\end{defn}
+
+\begin{es}
+Sia $L=\{+,-,\cdot,0,1\}$, con $+,\cdot$ operazioni binarie, $-$ operazione unaria e $0,1$ costanti. La \emph{teoria dei campi} è la $L$-teoria data dai seguenti assiomi:
+\begin{enumerate}
+\item $\forall x \forall y \forall z (x + (y + z)=(x + y) + z)$
+\item $\forall x \forall y (x+y=y+x)$
+\item $\forall x (x + 0= x \wedge 0 + x = x)$
+\item $\forall x (x + (-x) =0 \wedge (-x) + x =0)$
+\item $\forall x \forall y \forall z (x \cdot (y \cdot z)=(x \cdot y) \cdot z)$
+\item $\forall x (x \cdot 1= x \wedge 1 \cdot x = x)$
+\item $\forall x \forall y \forall z ((x+y) \cdot z = (x \cdot z) + (y \cdot z)$
+\item $\forall x \forall y (x \cdot y = y \cdot x)$
+\item $0 \neq 1$
+\item $\forall x (x \neq 0 \imp \exists y (x \cdot y =1))$
+\end{enumerate}
+Ovviamente, una generica $L$-struttura non sarà necessariamente un campo. Ma se richiediamo che una $L$-struttura soddisfi tutti gli enunciati della teoria dei campi, allora sarà un campo. Ad esempio, $(\R,+,-,\cdot,0,1)$ è un campo se interpretiamo $+,-,\cdot,0,1$ nel modo ovvio.
+\end{es}
+
+\begin{defn}
+Siano $L$ un linguaggio e $T$ una $L$-teoria. Sia $\sigma$ un $L$-enunciato. Diciamo che $T$ \emph{dimostra} $\sigma$ se ogni modello di $T$ soddisfa $\sigma$, in simboli:
+\[
+M \models T \; \imp \; M \models \sigma
+\]
+per ogni $L$-struttura $M$. In questo caso, scriviamo $T \vdash \sigma$.
+\end{defn}
+
+\begin{defn}
+Una $L$-teoria $T$ si dice \emph{coerente} (o \emph{consistente}) se $T \not\vdash \sigma \wedge \neg\sigma$ per ogni $L$-enunciato $\sigma$. Inoltre $T$ si dice \emph{completa} se è coerente e $T \vdash \sigma$ oppure $T \vdash \neg\sigma$ per ogni $\sigma$ enunciato di $L$.
+\end{defn}
+
+
+\subsection{La Teoria degli Insiemi di Zermelo-Fraenkel}
+
+In matematica, e in particolare in logica matematica, la teoria degli insiemi di Zermelo-Fraenkel comprende gli assiomi standard della teoria assiomatica degli insiemi su cui si basa gran parte della matematica ordinaria secondo formulazioni moderne (insieme all'Assioma di Scelta). 
+
+Gli assiomi sono il risultato del lavoro di Thoralf Skolem del 1922, basato su lavori precedenti di Abraham Fraenkel nello stesso anno, che si basa sul sistema assiomatico sviluppato da Ernst Zermelo nel 1908 (teoria degli insiemi di Zermelo).
+
+Il linguaggio della teoria degli insiemi contiene un unico simbolo di relazione binaria: $L=\{\in \}$.
+
+Per rendere più agevole la lettura degli assiomi, introduciamo nuovi simboli così definiti:
+
+\[
+\text{inclusione: } x\subseteq y \Leftrightarrow \forall z(z	\in x \Rightarrow z \in y),
+\]
+\[
+\text{successore: } y= S(x) \Leftrightarrow \forall z (z \in y \Leftrightarrow z \in x \lor z =x),
+\]
+\[
+\text{intersezione: } y = v \cap w \Leftrightarrow \forall x (x \in y \Leftrightarrow x \in v \land x \in w  ),
+\]
+\[
+\text{singoletto: } \mathrm{SING}(x) \Leftrightarrow \exists y \in x \forall z \in x (z=y)\footnote{Quella usata è una forma abbreviata di scrittura. La versione estesa sarebbe $\exists y (y \in x \wedge \forall z (z \in x \imp z=y))$.}.
+\]
+
+\begin{itemize}
+\item \emph{\textbf{Estensionalità}}
+\[
+\forall x \forall y (x \subseteq y \land y \subseteq x \Rightarrow x=y)
+\]
+
+\item \emph{\textbf{Schema di separazione}}
+\[
+\forall w_1,...,w_n (\forall v \exists y \forall x (x \in y \Leftrightarrow x \in v \land \phi(x,w_1,...,w_n,v))),
+\]
+per ogni $L$-formula $\phi(x,w_1,...,w_n,v)$. Questo è uno \emph{schema} di assiomi: ogni $L$-formula $\phi$ dà un assioma diverso.
+
+\item \emph{\textbf{Insieme vuoto}}
+\[
+\exists x \forall y (y \notin x)
+\]
+Denotiamo con $\emptyset$ l'unico\footnote{L'unicità segue immediatamente da Estensionalità.} insieme che soddisfa questo assioma.
+
+\item \emph{\textbf{Fondazione}}
+\[
+\forall x (x \neq \emptyset \Rightarrow \exists y (y \in x \land \neg \exists z (z \in x \land z \in y)  ))
+\]
+
+\item \emph{\textbf{Coppia}}
+\[
+\forall x \forall y ( \exists z (x \in z \land y \in z))
+\]
+
+\item \emph{\textbf{Unione}}
+\[
+\forall f ( \exists a \forall y \forall x (x \in y \land y \in f \Rightarrow x \in a))
+\]
+
+\item \emph{\textbf{Scheme of replacement}}
+
+\[
+\forall w_1,...,w_n \forall A( \forall x \in A \exists ! y \phi(x,y,w_1,...,w_n,A) \Rightarrow \exists B \forall x \in A \exists y \in B \phi (x,y,w_1,...,w_n,A)),
+\]
+per ogni $L$-formula $\phi(x,y,w_1,...,w_n,A)$.
+
+
+\item \emph{\textbf{Infinito}}
+\[
+\exists x (\emptyset \in x \land \forall y \in x (S(y) \in x) )
+\]
+
+\item \emph{\textbf{Potenza}}
+\[
+\forall x ( \exists y \forall z (z \subseteq x \Rightarrow z \in y ))
+\]
+
+\item \emph{\textbf{Assioma di Scelta}}
+\[
+\forall F ( \emptyset \notin F \land \forall x \in F \forall y \in F (x \neq y  \Rightarrow x \cap y= \emptyset ) \Rightarrow \exists C \forall x \in F (\mathrm{SING}(C \cap x)) )
+\]
+\end{itemize}
+
+Gli assiomi appena dati costituiscono la teoria \ZFC. \ZF denota la teoria data da \ZFC senza l'Assioma di Scelta.
+
+
+
+\newpage
+
+\topskip0pt
+\vspace*{\fill}
+\framebox{\textbf{NOTA:} In tutto l'elaborato lavoriamo, salvo indicazione contraria, in \ZF.}
+\vspace*{\fill}
+
+
+\chapter{Assioma di Scelta e pratica matematica}
+
+Iniziamo col dare la definizione di \emph{funzione di scelta} e \emph{prodotto cartesiano generalizzato}.
+
+\begin{defn}
+Sia $I$ un insieme e sia $\A:=\{A_i \mid i \in I\}$ una famiglia di insiemi. Diciamo che $f: I \to \bigcup \A$ è una funzione di scelta di $I$ su $\A$ se $f(i) \in A_i$ per ogni $i \in I$.
+\end{defn}
+
+\begin{defn}\label{def_prod_cart_gen}
+Sia $I$ un insieme e sia $\A:=\{A_i \mid i \in I\}$ una famiglia di insiemi. Il prodotto cartesiano generalizzato degli $A_i$ è 
+$$\times_{i \in I} A_i := \{f \mid f : I \to \bigcup\A \text{ è una funzione di scelta di $I$ su} \A \}$$
+\end{defn}
+
+\noindent Possiamo ora formulare l'Assioma di Scelta.
+
+\begin{defn}[\AC]\label{AC}
+L'Assioma di Scelta asserisce che per ogni insieme $I \neq \emptyset$ e per ogni famiglia $\A:=\{A_i \mid i \in I\}$ tale che $A_i \neq \emptyset$ per ogni $i \in I$, vale
+$$\times_{i \in I} A_i \neq \emptyset$$
+ovvero, esiste una funzione di scelta di $I$ su $\A$.
+\end{defn}
+
+\begin{oss}
+Quando scriviamo ``$\A=\{A_i \mid i \in I\}$'', stiamo di fatto affermando che esiste una biezione tra $\A$ e $I$. Questo si può sempre fare, dato che come insieme $I$ di indici possiamo prendere $\A$ stesso. In questo caso, una funzione di scelta di $\A$ su $\A$ è una $f: \A \to \bigcup \A$ tale che $f(A) \in A$ per ogni $A \in \A$. Per questo motivo, parleremo semplicemente di funzione di scelta su $\A$. Quindi, AC può essere riformulato così: se $\A$ è un insieme non vuoto tale che $\forall A \in \A \, (A \neq \emptyset)$, allora esiste una funzione di scelta su $\A$.
+\end{oss}
+
+\subsection{Formulazioni alternative}
+
+Come vedremo, l'Assioma di Scelta è equivalente (in \ZF) a moltissimi altri enunciati. Tuttavia, in questa sezione vogliamo elencare alcune formulazioni alternative molto diffuse in letteratura.
+
+\begin{prop}\label{formulazioniequiv}
+Sono equivalenti:
+\begin{itemize}
+\item[(i)] \AC;
+\item[(ii)] L'Assioma di Scelta per famiglie di insiemi disgiunti: se $\A \neq \emptyset$ è un insieme tale che $\forall A \in \A (A \neq \emptyset)$ e $\forall A,B \in \A \; (A \neq B \imp A \cap B = \emptyset)$, allora esiste una funzione di scelta su $\A$;
+\item[(iii)] se $\A \neq \emptyset$ è un insieme tale che $\forall A \in \A \; (A \neq \emptyset)$ e $\forall A,B \in \A \; (A \neq B \imp A \cap B = \emptyset)$, allora 
+\[
+\exists T \subseteq \bigcup \A \text{ tale che } \forall A \in \A \, (A \cap T \text{ è un singoletto});
+\]
+\item[(iv)] Per ogni insieme $X \neq \emptyset$, esiste una funzione di scelta su $\PP(X) \sm \{\emptyset\}$.
+\end{itemize}
+\begin{proof}
+Immediato.
+\end{proof}
+\end{prop}
+
+Se consideriamo insiemi di indici \emph{finiti}, allora l'esistenza di una funzione di scelta non richiede AC. Lo stesso vale se la famiglia di insiemi è formata da un solo elemento (anche se l'insieme di indici è infinito). Più precisamente:
+
+\begin{prop} Le seguenti valgono in \ZF:
+
+\begin{enumerate}
+\item Se $A_i = A$ per ogni $i \in I$, allora $\times_{i \in I} A_i = A^I$, ovvero è non vuoto se $I$ e $A$ sono non vuoti.
+\item Se $I=\{0,...,n\}$ per qualche $n \in \N$, allora $\times_{i \in I} A_i$ può essere identificato (i.e. è in biezione) con il prodotto cartesiano $A_0 \times ... \times A_n$. Quindi, se $A_i \neq \emptyset$ per ogni $i \in I$, allora $\times_{i \in I} A_i \neq \emptyset$.
+\end{enumerate}
+
+\begin{proof}
+Per il primo punto basta considerare una qualsiasi funzione costante $i \mapsto a$. Per il secondo punto è sufficiente procedere con una semplice induzione su $\N$ (che \emph{non} usa \AC).
+\end{proof}
+\end{prop}
+
+\begin{oss}
+La proposizione appena dimostrata \emph{non} afferma che se $A_i$ è finito per ogni $i \in I$, allora $\times_{i \in I} A_i \neq \emptyset$. Infatti, si dimostra che in \ZF questo non è necessariamente vero nemmeno se tutti gli $A_i$ sono formati da soli due elementi (distinti). 
+\end{oss}
+
+
+\section{Principali equivalenti}
+
+
+\begin{prop}
+Sono equivalenti
+\begin{equivalence}
+\punto{1} \AC
+\punto{2} Se $f : X \to Y$ è suriettiva, allora ammette un'inversa destra. Ovvero, esiste $g: Y \to X$ tale che $f(g(y))=y$ per ogni $y \in Y$.
+\end{equivalence}
+\begin{proof}\ \\
+\Implies{1}{2}: Basta scegliere, grazie a \AC, un elemento da ogni $f^{-1}(y)$ per ogni $y \in Y$.\\
+\Implies{2}{1}: Sia $\A$ una famiglia di insiemi non vuoti. Grazie alla Proposizione \ref{formulazioniequiv}, possiamo assumere senza perdita di generalità che gli insiemi siano mutualmente disgiunti. Definiamo allora una funzione che manda ogni $a \in \bigcup\A$ nell'unico $A \in \A$ tale che $a \in A$. Questa funzione è chiaramente suriettiva, e una qualsiasi sua inversa destra (che esiste per ipotesi) è una funzione di scelta su $\A$.
+\end{proof}
+\end{prop}
+
+Si osservi che la proposizione appena mostrata mette in luce come \AC sia talvolta necessario per provare anche risultati di base e intuitivamente evidenti.
+
+Il prossimo risultato è un esempio in qualche modo opposto: il fatto che ogni insieme sia bene ordinabile appare qualcosa di poco chiaro, e forse addirittura in contrasto con la nostra intuizione matematica\footnote{Si provi a immaginare un buon ordine su $\R$.}. Questa sensazione di ``disorientamento'' si può riassumere in una paradossale citazione di J.L. Bona: \emph{``The Axiom of Choice is obviously true, the Well–Ordering Principle is obviously false; and who can tell about Zorn’s Lemma''}\footnote{\cite{Sch97:Herrlich}, p. 145}.
+
+\begin{teo}\label{AC-WOT}
+Vale \AC se e solo se ogni insieme è in biezione con un ordinale.
+\begin{proof}
+Supponiamo che ogni insieme sia bene ordinabile. Allora, preso qualsiasi $X$ possiamo scegliere un buon ordine $\vartriangleleft_X$ su $X$ (\emph{senza} usare \AC, dato che stiamo scegliendo un buon ordine per un singolo insieme $X$). La funzione definita da $f(A)=\vartriangleleft_X$-$\min A$ è una funzione di scelta su $\PP (X) \sm \{\emptyset\}$.\\
+Mostriamo ora la parte interessante: sia $X$ un insieme. Se $X = \emptyset$, allora $X$ è banalmente bene ordinabile. Supponiamo quindi $X$ non vuoto e fissiamo una funzione di scelta $C$ su $\PP (X) \sm \{\emptyset\}$. Sia $x_0$ un elemento di $X$, per esempio $x_0=C(X)$ e supponiamo di avere costruito tramite induzione transfinita $x_0, x_1, ..., x_\beta, ...$ elementi distinti di $X$ per tutti i $\beta < \alpha$ per qualche ordinale $\alpha$. Se $X=\{x_\beta \mid \beta < \alpha\}$, allora $\alpha \to X$, $\beta \mapsto x_\beta$ è la biezione cercata. Altrimenti scegliamo un nuovo elemento $x_\alpha \in X$ distinto dai precedenti, per esempio $x_\alpha = C(X \sm \{x_\beta \mid \beta < \alpha\})$. Se la funzione $\alpha \mapsto x_\alpha$ fosse definita per tutti gli $\alpha < \Hrtg(X)$, allora avremmo un'iniezione $\Hrtg(X) \to X$, contro la definizione di numero di Hartogs. Quindi esiste un $\overline{\alpha} < \Hrtg(X)$ tale che $X=\{x_\beta \mid \beta < \overline{\alpha}\}$.
+\end{proof}
+\end{teo}
+
+\noindent\textbf{Nota.} La dimostrazione appena presentata non è del tutto rigorosa, in quanto la funzione $\Ord \to X$, $\alpha \mapsto x_\alpha$ è definita per ricorsione, e in particolare tramite \emph{ricorsione transfinita}. Il fatto che una tale funzione esista e sia ben definita non è garantito a priori, ma è una conseguenza del Teorema di Ricorsione Transfinita. Tuttavia, la nostra dimostrazione del Teorema \ref{AC-WOT} ci sembra intuitivamente chiara, quindi non tratteremo qui il Teorema di Ricorsione Transfinita\footnote{si veda eventualmente \cite{Kunen:logica}, p. 48}.\\
+
+Mostreremo adesso che \AC è equivalente ad altri due principi frequentemente utilizzati nella pratica matematica: il principio di massimalità di Hausdorff e il Lemma di Zorn.
+
+\begin{teo} Sono equivalenti:
+\begin{equivalence}
+\punto{1} \AC;
+\punto{2} \textbf{Principio di massimalità di Hausdorff:} Ogni insieme non vuoto parzialmente ordinato contiene una catena\footnote{In un insieme parzialmente ordinato $X$, si dice \emph{catena} una successione $(x_n)_{n \in \N}$ in $X$ tale che $x_n \leq x_{n+1}$ per ogni $n \in \N$.} massimale;
+\punto{3} \textbf{Lemma di Zorn:} Ogni insieme non vuoto parzialmente ordinato in cui ogni catena ha un maggiorante, contiene un elemento massimale.
+\end{equivalence}
+\begin{proof}\ \\
+\Implies{1}{2}: Sia $X$ un insieme. Per assurdo, sia $\leq$ un ordine parziale su $X$ privo di catene massimali. Quindi, se $C \subseteq X$ è una catena, l'insieme
+\[
+K(C) = \{x \in X \sm C \mid C \cup \{x\} \text{ è una catena}\}
+\]
+è non vuoto. Fissiamo una funzione di scelta $F: \PP(X) \sm \{\emptyset\} \to X$. La funzione $g: \Hrtg(X) \to X$ definita da 
+\[
+g(\alpha) = F(K(\{g(\beta) \mid \beta < \alpha\}))
+\]
+è iniettiva, contro la definizione di numero di Hartogs.\\
+\Implies{2}{3}: Sia $X$ un insieme. Sia $\leq$ un ordine parziale su $X$ in cui ogni catena ha un maggiorante. Se $C \subseteq X$ è una catena massimale, allora il maggiorante di $C$ deve appartenere a $C$ e quindi è un elemento massimale di $X$.\\
+\Implies{3}{1}: Sia $X \neq \emptyset$. Sia
+\[
+\mathcal{F}:=\{f \mid f \text{ è una funzione,} \dom(f) \subseteq \PP(X) \sm \{\emptyset\} \text{ e } \forall A \in \dom(f) \; (f(A) \in A)\}
+\]
+$\mathcal{F}$ è chiaramente non vuoto, dato che presi qualsiasi $A \in \PP(X) \sm \{\emptyset\}$ e $a \in A$, la funzione $A \mapsto a$ sta in $\mathcal{F}$. Inoltre, $\mathcal{F}$ è parzialmente ordinato da $\subseteq$\footnote{Ricordiamo che una funzione è un insieme di coppie ordinate.}. Sia $\mathcal{G} \subseteq \mathcal{F}$ una catena. Sia $g:=\bigcup \mathcal{G}$. Affermiamo che $g \in \mathcal{F}$. L'unica cosa da controllare è che $g$ è davvero una funzione, il che segue banalmente dall'ipotesi che $\mathcal{G}$ è un insieme totalmente ordinato, quindi ogni sua funzione è estensione di quelle che la precedono. Inoltre, è chiaro che $g$ è un maggiorante per $\mathcal{G}$. Quindi le ipotesi del Lemma di Zorn sono soddisfatte, e perciò esiste un elemento massimale $G \in \mathcal{F}$. Per concludere basta mostrare che $G$ è definita su tutto $\PP(X) \sm \{\emptyset\}$. Supponiamo per assurdo che esista $\emptyset \neq S \subseteq X$ tale che $G$ non è definita su $S$. Sia $s \in S$. Allora definiamo 
+\[
+G'(A):= 
+  \begin{cases} 
+      \hfill G(A)	\hfill & \text{ se $A \in \dom(G)$} \\
+      \hfill  s		\hfill & \text{ se $A=S$} \\
+  \end{cases}
+\]
+Si ha che $G' \in \mathcal{F}$ e $G' \supsetneq G$, assurdo.
+\end{proof}
+\end{teo}
+
+
+\section{C'è, ma non si vede}
+
+Spesso non è immediato individuare un eventuale ricorso dell'Assioma di Scelta all'interno di una dimostrazione. Talvolta, persino lo stesso autore della dimostrazione non è consapevole di averlo usato. A prova di questo fatto, citiamo ad esempio Borel, il quale, pur rifiutando \AC per famiglie non numerabili di insiemi\footnote{\label{cit_borel}\emph{``The last concept [\AC] seems to me to be entirely devoid of sense. As regards a denumerable infinity of choices, they cannot, of course, all be performed, but we can at least indicate such a procedure that, if we establish it beforehand, we may be sure that each choice will be made within a finite period of time; therefore, if two given systems of choice are different, we are sure to notice this after a finite number of operations. When an infinite number of choices is not denumerable, it is impossible to imagine a way of defining it, i.e., distinguishing it from an analogous infinite number of choices; thus it is impossible to regard it as a mathematical creation which can be introduced in arguments.''} E. Borel, \cite{Bor14:Herrlich}}, lo utilizzò applicandolo proprio a una famiglia di cardinalità $2^{\aleph_0}$ per dimostrare che esistono funzioni continue reali di variabile reale che non possono essere rappresentate come serie doppie di polinomi. Lo stesso accadde a Lebesgue: nonostante si dichiarasse esplicitamente critico nei confronti di \AC, lo usò per dimostrare che l'unione numerabile di sottoinsiemi misurabili di $\R$ è misurabile.\\
+\\
+Vediamo allora un esempio alquanto istruttivo di una dimostrazione che appare costruttiva, ma che in realtà non lo è.
+
+\begin{prop}\label{unione_num}
+Unione numerabile di insiemi numerabili è numerabile
+\begin{proof}
+Sia $X=\bigcup_{n \in \N} X_n$ unione numerabile di insiemi numerabili $X_n$. Assumiamo senza perdita di generalità che gli $X_n$ siano a due a due disgiunti. $X_n$ è numerabile, quindi può essere scritto nella forma
+\[
+X_n = \{x_n^i \mid i \in \N\} = \{x_n^0, x_n^1, x_n^2, ...\}
+\]
+Definiamo allora una biezione $f : \N \to X$ come nella seguente figura:
+
+\begin{displaymath}
+    \xymatrix{ 
+	x_0^0 \ar[r] & x_0^1 \ar[dl] & x_0^2 \ar[dl] & x_0^3 \ar[dl] &\dots \\
+	x_1^0 \ar[urr] & x_1^1 \ar[dl] & x_1^2 \ar[dl] & x_1^3 & \dots \\
+	x_2^0 \ar[uurrr] & x_2^1 \ar[dl] & x_2^2 & \dots \\
+	x_3^0 \ar@{-->}[uuurrrr] & x_3^1 & \dots & \dots
+	}
+\end{displaymath}
+
+ovvero, 
+\[
+\begin{array}{l}
+f(0)=x_0^0, \;\;\; f(1)=x_0^1, \;\;\; f(2)=x_1^0, \;\;\; f(3)=x_0^2, \;\;\; f(4)=x_1^1, \\
+f(5)=x_2^0, \;\;\; f(6)=x_0^3, ...
+\end{array}
+\]
+Possiamo anche considerare la sua inversa $f^{-1} : X \to \N$, data dalla formula esplicita:
+\[
+f^{-1}(x_i^k) = (i+1) + \sum_{\nu=1}^{i+k} \nu = (i+1) + \frac{(i+k) \cdot (i+k+1)}{2}
+\]
+Quindi $X$ è numerabile.
+\end{proof}
+\end{prop}
+
+\begin{oss}
+La dimostrazione appena presentata sembra fornire una biezione esplicita tra $\N$ e $X$, ma in realtà non è così. In effetti, una volta che tutti gli $X_n$ sono stati espressi nella forma $X_n = \{x_n^i \mid i \in \N\}$, il resto della dimostrazione è davvero costruttiva. Il problema è che per scrivere \emph{tutti} gli $X_n$ in quella forma, stiamo in realtà utilizzando \AC. Cerchiamo di capire perché: un insieme si dice numerabile se \emph{esiste} una biezione con $\N$. Ma le possibili biezioni sono molteplici! Quindi per scegliere una biezione per ogni $X_n$ dobbiamo effettuare una quantità infinita (numerabile) di scelte, ricorrendo perciò ad \AC.
+
+Per completezza, segnaliamo che l'enunciato in questione è davvero indipendente da \ZF (ma è più debole di \AC)\footnote{Si veda: \url{http://mathoverflow.net/questions/74743/countable-unions-and-the-axiom-of-countable-choice}}.
+\end{oss}
+
+\section{C'è, ma non serve}
+
+Nella sezione precedente abbiamo visto come l'utilizzo di \AC sia talvolta ``nascosto''. Vogliamo adesso presentare qualche esempio di situazione opposta: enunciati dimostrati utilizzando \AC, che possono però essere dimostrati anche senza ricorrervi.
+
+Può accadere che la dimostrazione senza \AC richieda un totale stravolgimento della dimostrazione iniziale, ma talvolta è sufficiente un piccolo aggiustamento. È il caso del seguente.
+
+\begin{prop}
+Ogni sottoinsieme chiuso di uno spazio compatto è compatto.
+\begin{proof} Sia $X$ un sottoinsieme chiuso di uno spazio compatto $Y$, e sia $\B$ un ricoprimento aperto di $X$. Per ogni $B \in \B$, scegliamo un aperto $A(B)$ di $Y$ tale che $B=X \cap A(B)$. Definiamo $\A=\{A(B) \mid B \in \B\}$. Allora $\A \cup \{Y \sm X\}$ è un ricoprimento aperto di $Y$, e quindi ammette un sottoricoprimento finito $\mathcal{F}$. Perciò, $\mathcal{G}=\{X \cap F \mid F \in \mathcal{F} \cap \mathcal{A}\}$ è un ricoprimento finito di $X$ con $\mathcal{G} \subseteq \mathcal{B}$.
+\end{proof}
+\end{prop}
+
+\begin{oss}
+In questa dimostrazione abbiamo fatto uso di \AC per scegliere gli $A(B)$. Ma in realtà l'utilizzo di \AC può essere evitato definendo diversamente $\A$:
+\[
+\A = \{A \mid A \text{ è un aperto di $Y$ e } X \cap A \in \B \}.
+\]
+In questo modo, il nuovo $\A$ potrebbe essere molto più grosso rispetto a quello originale, ma la dimostrazione funziona comunque senza modificare nient'altro.
+\end{oss}
+
+In casi particolarmente fortunati, una semplice analisi più attenta rivela che una dimostrazione apparentemente in \ZFC deriva in realtà anche solo da \ZF. Vediamo un esempio.
+
+\begin{prop}
+L'unione disgiunta di un numero finito di spazi compatti è compatta.
+\begin{proof}
+Sia $X$ l'unione disgiunta di spazi compatti $X_1,...,X_n$, e sia $\B$ un ricoprimento aperto di $X$. Per ogni $i=1,...,n$ \ l'insieme $\B_i=\{B \cap X_i \mid B \in \B \}$ è un ricoprimento aperto di $X_i$. Per compattezza, ogni $\B_i$ contiene un ricoprimento finito $\mathcal{F}_i$ di $X_i$. Per ogni $F \in \mathcal{F}_i$ scegliamo un elemento $B(F)$ in $\B$ tale che $F=B(F) \cap X_i$.\\
+Allora l'insieme $\mathcal{F}=\{B(F) \mid i \in \{1,...,n\} \text{ e } F \in \mathcal{F}_i\}$ è un ricoprimento finito di $X$ con $\mathcal{F} \subseteq \B$.
+\end{proof}
+\end{prop}
+
+\begin{oss}
+Nella dimostrazione abbiamo usato \AC per scegliere i $B(F)$. Ma osservando bene la situazione, si poteva anche farne a meno. Infatti, gli $X_i$ sono in numero finito e, per costruzione, ogni $\mathcal{F}_i$ è una famiglia finita. Quindi dobbiamo effettuare solo un numero finito di scelte, ovvero possiamo evitare l'utilizzo di \AC.
+\end{oss}
+
+
+
+
+\chapter{Disastri senza Scelta}
+
+
+\section{Finitezza}
+
+Solitamente la definizione di \emph{insieme finito} viene data in termini di numeri naturali: un insieme si dice finito se è in biezione con un numero naturale\footnote{Ricordiamo che $n=\{0,...,n-1\}$ per ogni $n \in \N$.}. Tuttavia, una tale definizione può risultare poco soddisfacente se si ritiene che il concetto di finitezza sia più ``primitivo'' e ``basilare'' di quello di numero naturale. Questa era proprio la posizione di Frege e Dedekind, per citarne alcuni. Storicamente infatti, la prima definizione alternativa si deve proprio a quest'ultimo\footnote{\cite{Ded1888:Herrlich}} (1888):
+
+\begin{defn}
+Un insieme $X$ si dice \emph{Dedekind-infinito} o \emph{D-infinito} se esiste un suo sottoinsieme proprio $Y \subsetneq X$ tale che $|X|=|Y|$. $X$ si dice \emph{D-finito} se non è D-infinito.
+\end{defn}
+
+Lo scopo di questa sezione è mettere a confronto alcune diverse definizioni di insieme finito. Come vedremo, le definizioni ``dialogano'' davvero male in assenza di \AC. Iniziando facendo vedere che \ZF è comunque in grado di dimostrare che gli insiemi D-finiti godono di alcune proprietà intuitivamente corrette.
+
+\begin{prop}\label{caratt_d-fin} Sono equivalenti (in \ZF):
+\begin{equivalence}
+\punto{1} $X$ è D-infinito
+\punto{2} $|X|=|X|+1$
+\punto{3} $\aleph_0 \leq |X|$, i.e. esiste una funzione iniettiva $\N \to X$
+\end{equivalence}
+\begin{proof}\ \\
+\Implies{3}{2}: Sia $f: \N \to X$ una funzione iniettiva. Sia $\infty$ un elemento non contenuto in $X$\footnote{Si dimostra facilmente che gli assiomi di \ZF ci permettono sempre di trovare un elemento che non appartiene a un certo insieme.}. Allora la mappa $g: X \to X \cup \{\infty\}$ definita da 
+\[
+g(x)=
+  \begin{cases} 
+      \hfill		\infty	\hfill & \text{ se $x=f(0)$} \\
+      \hfill 	f(n)		\hfill & \text{ se $x=f(n+1)$} \\
+      \hfill 	x		\hfill & \text{ altrimenti} \\
+  \end{cases}
+\]
+è una biezione.\\
+\Implies{2}{1}: Sia $\infty$ un elemento non contenuto in $X$ e sia $f: X \to X \cup \{\infty\}$ una biezione. Allora $f^{-1}$ ristretta a $X$ è iniettiva e ha come immagine il suo sottoinsieme proprio $X \sm \{f^{-1}(X)\}$.\\
+\Implies{1}{3}: Sia $f: X \to X$ iniettiva. Supponiamo che l'immagine di $f$ sia un sottoinsieme proprio di $X$. Sia allora $y \in X \sm f[X]$ e definiamo ricorsivamente\footnote{Il Teorema di Ricorsione sui naturali non usa \AC.} $g: \N \to X$ data da $g(0)=y$ e $g(n+1)=f(g(n))$. Allora $g$ è iniettiva.
+\end{proof}
+\end{prop}
+
+Purtroppo, \ZF non è abbastanza potente per dimostrare alcune proprietà che vorremmo decisamente fossero soddisfatte da ogni insieme ``finito''.
+
+\begin{prop}\label{d-fin_bugs}
+In alcuni modelli di \ZF possono essere soddisfatte le seguenti:
+\begin{enumerate}
+\item Esiste un'unione D-finita di insiemi D-finiti che è D-infinita.
+\item Esiste un insieme D-finito il cui insieme delle parti è D-infinito.
+\item Esiste un insieme D-infinito che è immagine di un insieme D-finito.
+\end{enumerate}
+\begin{proof}
+Consideriamo un modello di \ZF con la seguente proprietà:
+\begin{center}
+Esiste una sequenza $(X_n)_{n \in \N}$ di insiemi mutualmente disgiunti formati da due elementi, i.e. $X_n=\{x_n,y_n\}$, tale che $X=\bigcup_{n \in \N} X_n$ è D-infinito.
+\end{center}
+Si dimostra che un tale modello esiste\footnote{Ad esempio il modello N2(2) in \cite{HoRu98:Herrlich}.} (e non soddisfa \AC). Mostriamo ora che questo modello soddisfa tutti gli enunciati in questione:
+\begin{enumerate}
+\item Per ogni $z \in X$, consideriamo l'insieme $Y_z = \{z,n\}$, dove $n \in \N$ è l'unico naturale tale che $z \in X_n$. Allora $Y= \bigcup_{z \in X} Y_z$ è unione D-finita di insiemi D-finiti. Ma $Y = \N \cup \bigcup_n X_n$ è D-infinito, dato che la funzione $f: \N \to Y$ definita da $f(n)=n$ è ovviamente iniettiva.
+\item Nonostante $X$ sia D-finito, il suo insieme delle parti $\PP(X)$ è D-infinito. Infatti la funzione $f: \N \to \PP(X)$ definita da $f(n) = \displaystyle\bigcup_{m \leq n} X_m$ è iniettiva.
+\item Nonostante $X$ sia D-finito, la funzione $f: X \to \N$ che manda ogni $x \in X$ nell'unico $n \in \N$ tale che $x \in X_n$, è suriettiva.
+\end{enumerate}
+\end{proof}
+\end{prop}
+
+La Proposizione \ref{d-fin_bugs} mostra che la definizione di insieme finito secondo Dedekind si comporta estremamente male in assenza di \AC. Vedremo tra poco che tutti i problemi scompaiono in presenza di \AC. Nel frattempo, introduciamo una terza (e ultima) definizione di insieme finito dovuta a Tarski (1924).
+
+\begin{defn}\footnote{Tarski, \cite{Tar24a:Herrlich}.}
+Un insieme $X$ si dice \emph{Tarski-finito} se ogni sottoinsieme non vuoto di $\PP(X)$ contiene un elemento minimale rispetto all'ordine dato dall'inclusione. Un insieme si dice \emph{Tarski-infinito} se non è Tarski-finito.
+\end{defn}
+
+\begin{prop}\label{caratt_t-fin} Sono equivalenti (in \ZF):
+\begin{equivalence}
+\punto{1} $X$ è Tarski-finito.
+\punto{2} Se $\U \subseteq \PP(X)$ soddisfa
+\begin{itemize}
+\item[a)] $\emptyset \in \U$, e
+\item[b)] se $A \in \U$ e $x \in X$, allora $A \cup \{x\} \in \U$,
+\end{itemize}
+allora $X \in \U$.
+\end{equivalence}
+\begin{proof}\ \\
+\Implies{1}{2}: La collezione $\B = \{X \sm A \mid A \in \U\}$ ha un elemento minimale, diciamo $B$. Quindi $\U$ ha un elemento massimale, ovvero $A = X \sm B$. La condizione (b) implica banalmente $A=X$.\\
+\Implies{2}{1}: Sia $\U$ la famiglia di tutti i sottoinsiemi Tarski-finiti di $X$. Poiché $\U$ soddisfa (a) e (b)\footnote{La verifica è immediata.}, abbiamo che per ipotesi vale $X \in \U$. Ovvero $X$ è Tarski-finito.
+\end{proof}
+\end{prop}
+
+\begin{corollario}
+Ogni insieme è finito se e solo se è Tarski-finito.
+\begin{proof}
+Se $|X|=n$ per qualche $n \in \N$, allora $|\PP(X)|=2^n$, ovvero anche $\PP(X)$ è finito\footnote{La dimostrazione di questo fatto è ben nota, procede per induzione e vale in \ZF.}. Perciò un suo qualsiasi sottoinsieme è finito, e ogni insieme finito parzialmente ordinato contiene banalmente un elemento minimale. Viceversa, supponiamo $X$ infinito. Sia $\U=\{F \subseteq X \mid F \text{ è finito}\} \subseteq \PP(X)$. Allora ovviamente $\U$ soddisfa le condizioni (a) e (b) della Proposizione \ref{caratt_t-fin}. Se per assurdo $X$ fosse Tarski-finito, allora avremmo che $X \in \U$, ovvero $X$ è finito. Contraddizione.
+\end{proof}
+\end{corollario}
+
+\begin{oss}\label{oss_fin=t-fin}
+Alla luce del corollario appena mostrato, è chiaro che gli insiemi Tarski-finiti non soddisfano nessuna delle spiacevoli proprietà degli insiemi D-finiti descritte nella Proposizione \ref{d-fin_bugs}. Quest'ultima affermazione si può dimostrare piuttosto facilmente usando semplicemente la definizione di insieme Tarski-finito, ma data la totale equivalenza con la definizione tradizionale di insieme finito, preferiamo non annoiare il lettore\footnote{Si veda eventualmente p. 46, \cite{Herrlich:Herrlich}.}. Inoltre, per lo stesso motivo, d'ora in poi scriveremo semplicemente ``finito'' anziché ``Tarski-finito''.
+\end{oss}
+
+Vogliamo concludere questa sezione occupandoci del rapporto tra finitezza in senso tradizionale e finitezza secondo Dedekind.
+
+\begin{prop}\label{fin_imp_d-fin}
+Ogni insieme finito è D-finito.
+\begin{proof}
+Supponiamo che $X$ sia D-infinito. Allora esiste $f: \N \to X$ iniettiva. Quindi il sottoinsieme di $\PP(X)$ dato da $\U=\{\{f(m) \mid m \geq n\} \mid n \in \N\}$ è non vuoto, ma ovviamente non contiene nessun elemento minimale (rispetto all'inclusione). Quindi $X$ è infinito.
+\end{proof}
+\end{prop}
+
+L'implicazione inversa non vale in \ZF. Infatti, si possono trovare modelli di \ZF nei quali esistono insiemi infiniti che sono D-finiti.\\
+Si osservi che questo, unito alla caratterizzazione (3) della Proposizione \ref{caratt_d-fin}, significa che in qualche modello di \ZF esistono insiemi infiniti che non contengono una ``copia'' di $\N$, nel senso che $\N$ non si inietta in essi. 
+
+%Ovviamente un insieme infinito non si inietta in $\N$, perciò questo significa che in assenza di \AC due insiemi possono avere cardinalità non confrontabili. SICURO??? PENSARCI MEGLIO
+
+Possiamo chiederci: quando i due concetti di finitezza coincidono? Il prossimo teorema mostrerà che condizione (ovviamente necessaria, ma anche) sufficiente è che uno qualsiasi dei disastri della Proposizione \ref{d-fin_bugs} non si avveri. Abbiamo prima bisogno di un lemma:
+
+\begin{lemma}\label{lemma_suriez_d-fin} Sono equivalenti:
+\begin{equivalence}
+\punto{1} $\aleph_0 \leq^* |X|$, ovvero esiste una suriezione $X \to \N$.
+\punto{2} $\PP(X)$ è D-infinito, ovvero esiste un'iniezione $\N \to \PP(X)$.
+\end{equivalence}
+\begin{proof}\ \\
+\Implies{1}{2}: Sia $f: X \to \N$ suriettiva. Allora la funzione $g: \N \to \PP(X)$ definita da $g(n)=f^{-1}(n)$ è iniettiva.\\
+\Implies{2}{1}: Sia $f: \N \to \PP(X)$ iniettiva. Vogliamo riuscire a definire ricorsivamente una funzione $g: \N \to \PP(X)$ tale che tutti i $g(n)$ sono non vuoti e mutualmente disgiunti. Infatti, una volta che disponiamo di una tale $g$, la mappa $h: X \to \N$ definita da
+\[
+h(x)=
+  \begin{cases} 
+      \hfill		n	\hfill & \text{ se $x \in g(n)$} \\
+      \hfill 	0		\hfill & \text{ se $x \not\in \bigcup_{n \in \N} g(n)$} \\
+  \end{cases}
+\]
+è suriettiva.\\
+Cerchiamo allora di costruire $g$ come descritto. Sia $n \in \N$. Supponiamo ora di aver definito $g(m)$ per tutti gli $m<n$ in modo che l'insieme 
+\[
+\{f(k) \sm \bigcup_{m<n} g(m) \mid k \geq n\}
+\]
+è finito $(*)$.
+Osserviamo che la condizione $(*)$ implica banalmente che $f(k) \sm \bigcup_{m<n} g(m) \neq \emptyset$ per una quantità infinita di $k$. Di conseguenza, di nuovo grazie a $(*)$, per almeno uno di questi $k$ si avrà anche che $f(k) \cup \bigcup_{m<n} g(m) \neq X$. Perciò, siamo autorizzati a definire
+\[
+n^* = \min \left\{ k \; \Bigg\rvert \; k \geq n \text{ e } 
+f(k) \sm \bigcup_{m<n} g(m) \neq \emptyset \neq X \sm \left( f(k) \cup \bigcup_{m<n} g(m) \right) \right\}.
+\]
+Consideriamo ora due casi: supponiamo che 
+$\{f(k) \sm [f(n^*) \cup \bigcup_{m<n} g(m)] \mid k>n^*\}$ sia
+\begin{itemize}
+\item infinito. Allora definiamo $g(n) = f(n^*) \sm \bigcup_{m<n} g(m)$ .
+\item finito. Allora definiamo $g(n) = X \sm \left( f(n^*) \cup \bigcup_{m<n} g(m) \right)$.
+\end{itemize}
+Per costruzione di $n^*$, è chiaro che in entrambi i casi $g(n) \neq \emptyset$ e che $g(n)$ è disgiunto da tutti i $g(m)$ precedenti. Resta da verificare che la condizione $(*)$ è soddisfatta (sostituendo $n+1$ a $n$). Nel primo dei due casi, questo è immediato. Nel secondo caso, deriva in modo semplice (ma noioso da verificare) da $(*)$ e dall'ipotesi di $f$ iniettiva.
+\end{proof}
+\end{lemma}
+
+\begin{teo}\label{caratt_fin=d-fin} Sono equivalenti:
+\begin{equivalence}
+\punto{1} Finito = D-finito.
+\punto{2} Unione D-finita di insiemi D-finiti è D-finita.
+\punto{3} Le immagini di insiemi D-finiti sono D-finite.
+\punto{4} L'insieme delle parti di un insieme D-finito è D-finito.
+\punto{5} Ogni insieme $X$ è confrontabile con $\aleph_0$, i.e. vale $\aleph_0 \leq |X|$ oppure $|X| \leq \aleph_0$.
+\end{equivalence}
+\begin{proof} \ \\
+\Implies{1}{2}: Segue banalmente dall'Osservazione \ref{oss_fin=t-fin}.\\
+\Implies{2}{3}: Sia $X$ D-finito e sia $f: X \to Y$ suriettiva. Allora $Y=\bigcup_{x \in X} \{f(x)\}$ è unione D-finita di insiemi D-finiti, quindi D-finita.\\
+\Implies{3}{4}: Supponiamo $\PP(X)$ D-finito. Allora, grazie al lemma precedente esiste $f: X \to \N$ suriettiva. Poiché $\N$ è D-infinito, per ipotesi abbiamo che $X$ è D-infinito.\\
+\Implies{4}{1}: È sufficiente mostrare che ogni insieme infinito è D-infinito. Sia allora $X$ infinito. La funzione $f: \N \to \PP(\PP(X))$ definita da $f(n)=\{A \subseteq X \mid |A|=n\}$ è iniettiva. Quindi $\PP(\PP(X))$ è D-infinito. Per ipotesi, abbiamo che $\PP(X)$ è D-infinito. Di nuovo per ipotesi, anche $X$ è D-infinito.\\
+$\text{\ref{statement1}}\!\iff\!\text{\ref{statement5}}$: Ovvio.
+\end{proof}
+\end{teo}
+
+Osserviamo che gli insiemi D-finiti possono essere piuttosto ``grossi''. Se $X$ è D-finito e $\PP(X)$ è D-infinito, allora per il Lemma \ref{lemma_suriez_d-fin} si ha $\aleph_0 \leq^* |X|$. Ancora peggio: si può dimostrare\footnote{Monro, \cite{Mon75:Herrlich}.} che è consistente con \ZF assumere che per $\aleph_\alpha$ arbitrariamente grandi esistono insiemi D-finiti $X$ tali che $\aleph_\alpha \leq^* |X|$.\\
+\\
+La dimostrazione dell'ultimo teorema mette in luce un fatto interessante: nonostante la classe di tutti gli insiemi finiti e la classe di tutti gli insiemi D-finiti non coincidano, la prima è completamente determinata dalla seconda. Per chiarezza ripetiamo la dimostrazione.
+
+\begin{prop}\label{prop_P(P(X))} Sono equivalenti:
+\begin{equivalence}
+\punto{1} $X$ è finito.
+\punto{2} $\PP(\PP(X))$ è D-finito.
+\end{equivalence}
+\begin{proof}\ \\
+\Implies{1}{2}: Immediato per la Proposizione \ref{fin_imp_d-fin}.\\
+\Implies{2}{1}: Supponiamo $X$ infinito. La funzione $f: \N \to \PP(\PP(X))$ definita da $f(n)=\{A \subseteq X \mid |A|=n\}$ è iniettiva. Quindi $\PP(\PP(X))$ è D-infinito.
+\end{proof}
+\end{prop}
+
+L'ultimo risultato della sezione ci restituisce finalmente un po' di serenità:
+
+\begin{prop} 
+Se vale \AC, finito = D-finito.
+\begin{proof}
+È sufficiente mostrare che ogni insieme infinito $X$ è D-infinito. Se $X$ è infinito allora, per ogni $n \in \N$, l'insieme $X_n$ di tutte le $n$-uple iniettive $\overrightarrow{t_n} = (x_1,...,x_n)$ di $X$ è non vuoto\footnote{La dimostrazione è immediata per induzione: supponiamo di aver definito $f: \{1,...,n\} \to X$ iniettiva. Se $X \sm \ran(f) \neq \emptyset$, allora estendiamo $f$ mandando $n+1$ in un qualsiasi elemento che non sta nell'immagine. Se per assurdo $X \sm \ran(f) = \emptyset$, allora $f$ è una biezione, contro l'ipotesi di $X$ infinito.}. Allora, per \AC esiste una sequenza di tuple 
+\[
+\left(\overrightarrow{t_n}\right)_{n \in \N} \in \times_{n \in \N} X_n.
+\]
+La concatenazione di tutte le $\overrightarrow{t}_n$ definisce una successione $(s_n)_{n \in \N}$ in $X$ che ha immagine infinita (più precisamente: se $\overrightarrow{t}_n=(x_1^n,...,x_n^n)$, allora $s_{n \frac{(n+1)}{2}+k} := x_k^{n+1}$ con $n \in \N$ e $k \in \{1,...,n+1\}$).\\
+La successione $(s'_n)_{n \in \N}$ ottenuta ``cancellando'' tutti i termini ripetuti di $s_n$ è ovviamente una funzione iniettiva $\N \to X$ (più precisamente: $s'_n := s_{\min\{k \mid s_k \not\in \{s'_m \mid m<n\}\}}$). Quindi $X$ è D-finito.
+\end{proof}
+\end{prop}
+
+Il converso non vale. Infatti, esistono modelli di \ZF che soddisfano l'enunciato ``finito = D-finito'', ma non soddisfano \AC\footnote{Ad esempio il modello di Sageev (M6 in \cite{HoRu98:Herrlich}).}.
+
+\section{Aritmetica cardinale}
+
+Verso la fine del XIX secolo, Georg Cantor diede inizio allo studio della Teoria degli Insiemi come la conosciamo ora. In particolare, fondò i suoi lavori sull'idea di confrontare le ``dimensioni'' di due insiemi in termini di funzioni iniettive.
+
+È chiaro che, affinché una definizione di \emph{dimensione} di un insieme ci soddisfi appieno, vorremmo che, applicando una medesima operazione insiemistica ad insiemi di uguale \emph{dimensione}, i due insiemi risultanti avessero la stessa \emph{dimensione}. Inoltre, ci piacerebbe che due qualsiasi insiemi fossero sempre confrontabili. Purtroppo, in assenza di \AC, queste due condizioni (insieme a molte altre) non sono necessariamente soddisfatte, se con \emph{dimensione} intendiamo \emph{cardinalità}.\
+
+Abbiamo già osservato questo fatto relativamente a $\aleph_0$ nella precedente sezione con il Teorema \ref{caratt_fin=d-fin}. Vogliamo ora presentare qualche risultato che descrive in modo più preciso l'aritmetica cardinale in assenza di \AC. 
+
+\begin{defn}
+Sia $I$ un insieme e sia $\{A_i \mid i \in I\}$ una successione di insiemi. L'\emph{unione disgiunta} degli $A_i$ è
+\[
+\biguplus_{i \in I} A_i = \bigcup_{i \in I} A_i \times {i}
+\]
+\end{defn}
+
+\begin{defn}
+Definiamo la somma e il prodotto numerabile di cardinali in questo modo: sia $\{X_n \mid n \in \N\}$ una famiglia di insiemi. Allora
+\begin{itemize}
+\item $\displaystyle\sum_{n \in \N} |X_n| := |\displaystyle\biguplus_{n \in \N} X_n |$,
+\item $\displaystyle\prod_{n \in \N} |X_n| := |\!\times_{n \in \N} X_n |$,
+\end{itemize}
+dove $\times$ indica il prodotto cartesiano generalizzato (Definizione \ref{def_prod_cart_gen}).
+\end{defn}
+
+Il seguente mostra che in \ZF, quella appena data non è una buona definizione.
+
+
+\begin{prop}
+In alcuni modelli di \ZF esistono successioni di insiemi $(A_n)_{n \in \N}$ e $(B_n)_{n \in \N}$ tali che $|A_n|=|B_n|$ per ogni $n \in \N$, ma $\displaystyle\sum_{n \in \N} |A_n| \neq \displaystyle\sum_{n \in \N} |B_n|$ e $\displaystyle\prod_{n \in \N} |A_n| \neq \displaystyle\prod_{n \in \N} |B_n|$.
+\begin{proof}
+Supponiamo di lavorare in un modello di \ZF in cui esiste una successione $(A_n)_{n \in \N}$ tale che ogni $A_n$ contiene due elementi e $\times_{n \in \N} A_n = \emptyset$\footnote{Ad esempio N2(2) in \cite{HoRu98:Herrlich}.}. Sia $B_n=\{0,1\}$ per ogni $n \in \N$. Quindi $|A_n|=2=|B_n|$ per ogni $n \in \N$. Si ha però che:
+\begin{enumerate}
+\item Ovviamente $|\!\times_{n \in \N} A_n| = 0$. Inoltre $\times_{n \in \N} B_n = 2^{\N}$. Quindi otteniamo\\ $\displaystyle\prod_{n \in \N} |B_n| = 2^{\aleph_0} \neq \displaystyle\prod_{n \in \N} |A_n|$.
+\item È chiaro che $\displaystyle\biguplus_{n \in \N} B_n$ è in biezione con $\N \times \{0,1\}$. Vogliamo mostrare che $\displaystyle\prod_{n \in \N} |A_n| \neq \aleph_0 = \displaystyle\prod_{n \in \N} |B_n|$. L'uguaglianza segue subito da questo risultato elementare\footnote{Per l'iniezione non banale, si consideri la mappa $(n,0) \mapsto 2n$, $(n,1) \mapsto 2n+1$ e si applichi Schröder-Bernstein.}: $|\N \times \{0,1\}|=|\N|$. Per verificare la disuguaglianza procediamo per assurdo\footnote{La dimostrazione formale che segue risulta un po' macchinosa, ma il concetto è semplice: se abbiamo una biezione da $\N$ in un'unione disgiunta di insiemi, allora abbiamo un buon ordine su quell'unione: il buon ordine indotto dall'ordine canonico di $\N$. Quindi posso utilizzare questo buon ordine per scegliere un elemento da ogni $A_n$.}. Ricordiamo che $\displaystyle\biguplus_{n \in \N} A_n \stackrel{\text{def}}{=} \displaystyle\bigcup_{n \in \N} A_n \times \{n\}$. Se per assurdo esistesse una biezione 
+\[
+f: \N \to \displaystyle\bigcup_{n \in \N} A_n \times \{n\}
+\]
+allora potremmo definire $F \in \times_{n \in \N} A_n$ così:
+\[
+F(n)= \pi_1\Big(f\big(\min \big\{f^{-1}[A_n \times \{n\}] \big\} \, \big)\Big)
+\]
+dove $\pi_1$ è la proiezione sulla prima componente. Quindi $\times_{n \in \N} A_n$ sarebbe non vuoto. Contraddizione.
+\end{enumerate}
+\end{proof}
+\end{prop}
+
+Lo spiacevole risultato appena presentato fu descritto da Russel in termini di due sequenze (infinite): una formata da paia di calzini e l'altra formata da paia di scarpe. Le due sequenze rappresentano rispettivamente $(A_n)_{n \in \N}$ e $(B_n)_{n \in \N}$ della proposizione. In ogni paio, la scarpa destra e quella sinistra sono distinguibili una dall'altra, mentre ciò non avviene con le paia di calzini. Quindi, ``\emph{non possiamo scegliere un calzino da un numero infinito di paia, a meno che non disponiamo di una qualche \textbf{regola} per scegliere, e in questo caso non possiamo trovare nessuna regola.}'', \cite{Rus07:Herrlich}.
+
+Il prossimo teorema mostra che possiamo incontrare situazioni strane anche solo limitandoci a un numero finito di cardinali.
+
+\begin{defn}
+Due cardinali $a$ e $b$ si dicono \emph{confrontabili} rispetto a $\leq$ (risp. rispetto a $\leq^*$) se $a \leq b$ o $b \leq a$ (risp. $a \leq^* b$ o $b \leq^* a$).
+\end{defn}
+
+\begin{prop}
+Può succedere che:
+\begin{itemize}
+\item[(1)] Esistono cardinali $a$ e $b$ tali che $a \leq^* b$ e $a \not\leq b$.
+\item[(2)] Esistono cardinali $a$ e $b$ tali che non sono confrontabili rispetto a $\leq$.
+\item[(3)] Esistono cardinali $a$ e $b$ tali che non sono confrontabili rispetto a $\leq^*$.
+\end{itemize}
+\begin{proof}\ 
+\begin{itemize}
+\item[(1)] Supponiamo di lavorare in un modello di \ZF in cui esiste un insieme infinito $X$ che è D-finito. Allora esiste un cardinale $a$ tale che $\aleph_0 \leq^* a$ e $\aleph_0 \not\leq a$. Infatti, grazie Lemma \ref{lemma_suriez_d-fin}, se $\PP(X)$ è D-infinito basta prendere $a=|X|$. Se invece $\PP(X)$ è finito, allora poniamo $a=|\PP(X)|$. Anche in questo caso la richiesta è soddisfatta, dato che $\PP(\PP(X))$ è D-infinito per la Proposizione \ref{prop_P(P(X))}, e si conclude di nuovo per il Lemma \ref{lemma_suriez_d-fin}.
+\item[(2)] Sia $X$ un insieme che non è bene ordinabile. Sia $\Hrtg(X)$ il suo numero di Hartogs. Allora $\Hrtg(X) \not\leq |X|$ per definizione. Ma vale anche $|X| \not\leq \Hrtg(X)$, perché altrimenti $X$ sarebbe bene ordinabile.
+\item[(3)] Si veda il prossimo teorema.
+\end{itemize}
+\end{proof}
+\end{prop}
+
+\begin{teo} Sono equivalenti:
+\begin{equivalence}
+\punto{1} Presi due cardinali qualsiasi, questi sono confrontabili rispetto a $\leq$.
+\punto{2} Presi due cardinali qualsiasi, questi sono confrontabili rispetto a $\leq^*$.
+\punto{3} \AC.
+\end{equivalence}
+\begin{proof}\ \\
+\Implies{1}{2}: Segue subito dal fatto (banale) che ogni funzione iniettiva ammette un'inversa sinistra.\\
+\Implies{2}{3}: Sia $X$ un insieme. Allora, per qualsiasi insieme $Y$, $|Y| \leq^* |X|$ implica $|Y| \leq |\PP(X)|$ \footnote{Se $s: X \to Y$ è suriettiva allora $i: Y \to \PP(X)$, $y \mapsto s^{-1}(y)$ è iniettiva.}. Quindi necessariamente $\Hrtg(\PP(X)) \not\leq^* |X|$. Per ipotesi abbiamo $|X| \leq^* \Hrtg(\PP(X))$, i.e. (per $X \neq \emptyset$) esiste $f: \Hrtg(\PP(X)) \to X$ suriettiva. Sia $g: X \to \Hrtg(\PP(X))$ definita da $g(x)=\min f^{-1}(x)$. Ovviamente $g$ è iniettiva. Quindi $X$ è bene ordinabile. Per arbitrarietà di $X$ otteniamo \AC.\\
+\Implies{3}{1}: Siano $X$ e $Y$ insiemi arbitrari.  Per il Teorema \ref{AC-WOT}, $X$ e $Y$ sono bene ordinabili. È un risultato ben noto che due qualsiasi insiemi bene ordinati sono isomorfi oppure uno è isomorfo a un segmento iniziale dell'altro\footnote{Remark 4 in \url{http://terrytao.wordpress.com/2009/01/28/245b-notes-7-well-ordered-sets-ordinals-and-zorns-lemma-optional/}}. Perciò $|X|=|Y|$ oppure $|X| \leq |Y|$ oppure $|Y| \leq |X|$.
+\end{proof}
+\end{teo}
+
+
+\section{Ordini}
+
+In questa sezione trattiamo solamente un risultato, sufficiente però a mostrare come in assenza di \AC anche gli ordini lineari possono verificare proprietà molto strane.
+
+\begin{defn}
+Sia $(X, \leq)$ un insieme ordinato. Chiamiamo \emph{successione decrescente} (risp. \emph{crescente}) una successione $(x_n)_{n \in \N}$ in $X$ tale che $x_{n+1} < x_n$ (risp. $x_n < x_{n+1}$) per ogni $n \in \N$.
+\end{defn}
+
+\begin{prop}
+I seguenti fatti possono essere validi in qualche insieme $(X, \leq)$ linearmente ordinato, persino prendendo $X \subseteq \R$:
+\begin{itemize}
+\item[(1)] $(X, \leq)$ non contiene nessuna successione decrescente, ma non è un buon ordine.
+\item[(2)] $(X, \leq)$ è infinito, ma non contiene successioni né crescenti né decrescenti.
+\item[(3)] $(X, \leq)$ è non vuoto e non ha un elemento massimo, ma non contiene successioni crescenti.
+\end{itemize}
+\begin{proof} Sia $X \subseteq \R$ infinito e D-finito\footnote{Esistono modelli di \ZF che contengono un tale insieme, ad esempio il modello di Cohen M1 in \cite{HoRu98:Herrlich}.}. Consideriamo su $X$ l'ordine indotto dall'ordine standard di $\R$.
+\begin{itemize}
+\item[(1) e (2)] Allora $X$ non contiene nessuna sequenza crescente o decrescente, dato che questa sarebbe anche una funzione iniettiva $\N \to X$. Inoltre, $X$ non è un buon ordine, perché altrimenti potremmo definire una successione crescente $(x_n)_{n \in \N}$ tramite ricorsione in questo modo:
+\[
+x_n = \min (X \sm \{x_m \mid m<n\}).
+\]
+\item[(3)] Se $X$ non ammette massimo, allora grazie alla dimostrazione di (2) basta prendere come testimone $X$ stesso. Se invece $X$ ha un massimo, allora esiste $F \subseteq X$ finito tale che $Y=X \sm F$ è infinito (quindi non vuoto), D-finito e privo di massimo, dato che altrimenti potremmo definire una successione decrescente $(x_n)_{n \in \N}$ in $X$ tramite ricorsione in questo modo:
+\[
+x_n = \max (X \sm \{x_m \mid m<n\}).
+\]
+Quindi possiamo ripetere per $Y$ la dimostrazione di (2) in modo esattamente uguale per provare che $Y$ non contiene successioni crescenti. Quindi $Y$ soddisfa la richiesta di (3).
+\end{itemize}
+\end{proof}
+\end{prop}
+
+
+\section{Spazi vettoriali}
+
+Nelle sezioni precedenti abbiamo visto come l'Assioma di Scelta sia fondamentale per assicurare che alcune strutture matematiche (insiemi finiti, cardinali, ordini,...) si comportino in modo simile alla nostra intuizione. Finora però la nostra analisi si è concentrata principalmente su argomenti inerenti, o comunque vicini, alla Logica Matematica.
+
+Lo scopo di questa sezione e della prossima sarà illustrare due celebri risultati che mostrano l'importanza di \AC anche in altre aree della matematica. In particolare, ci occuperemo di Algebra Lineare e di Topologia.
+
+Ricordiamo prima la definizione di base per uno spazio vettoriale.
+
+\begin{defn}
+Sia $F$ un campo e sia $V$ uno spazio vettoriale su $F$. Sia $B \subseteq V$. Diciamo che $B$ è una \emph{base} per $V$ se valgono entrambe le condizioni:
+\begin{itemize}
+\item Per ogni sottoinsieme finito $B_0 \subseteq B$, i vettori di $B_0$ sono linearmente indipendenti.
+\item Ogni elemento di $V$ si può scrivere come combinazione lineare di un numero finito di vettori di $B$.
+\end{itemize}
+\end{defn}
+
+\begin{teo} Sono equivalenti:
+\begin{equivalence}
+\punto{1} Ogni spazio vettoriale ha una base.
+\punto{2} \AC.
+\end{equivalence}
+\begin{proof}\ \\
+\Implies{1}{2}: DA FARE
+
+\end{proof}
+\end{teo}
+
+
+
+
+\section{Spazi compatti}
+
+
+
+Il teorema di Tychonoff (i.e. \emph{Il prodotto di compatti è compatto}) viene comunemente considerato uno dei risultati più importanti di Topologia generale. 
+
+\begin{aquote}{S. Willard, \cite{Wil70:Herrlich}}
+\emph{The theorem just proved \emph{[the Tychonoff Theorem]} can lay good claim to being the most important theorem in general (nongeometric) topology.}
+\end{aquote}
+
+Osservando le dimostrazioni più comuni di questo teorema si nota che esse fanno uso di \AC. Ma è davvero necessario? La risposta è affermativa.
+
+\begin{defn}
+Sia $\A=\{A_i \mid i \in I\}$ una famiglia di insiemi. Diciamo che $\A$ ha la \emph{proprietà dell'intersezione finita} se per ogni sottoinsieme finito $I_0 \subseteq I$ vale 
+\[
+\bigcap_{i \in I_0} A_i \neq \emptyset.
+\]
+\end{defn}
+
+\begin{prop}
+Uno spazio topologico è compatto se e solo se ogni famiglia di chiusi che ha la proprietà dell'intersezione finita ha intersezione non vuota.
+\begin{proof}
+La dimostrazione è semplice e ben nota\footnote{Si veda eventualmente\\ \url{http://planetmath.org/aspaceiscompactiffanyfamilyofclosedsetshavingfiphasnonemptyintersection}}.
+\end{proof}
+\end{prop}
+
+\begin{teo} Sono equivalenti:
+\begin{equivalence}
+\punto{1} Il teorema di Tychonoff: Il prodotto di spazi compatti è compatto.
+\punto{2} \AC.
+\end{equivalence}
+\begin{proof}\ \\
+\Implies{1}{2}: Sia $(X_i)_{i \in I}$ una famiglia di insiemi non vuoti e sia $\infty$ un elemento che non appartiene a nessun $X_i$. Definiamo degli spazi topologici $(Y_i, \tau_i)$ con $Y_i = X_i \cup \{\infty\}$ e $\tau_i=\big\{\emptyset, Y_i, \{\infty\}\big\}$. Per ipotesi, lo spazio topologico $P= \prod_{i \in I} (Y_i, \tau_i)$ è compatto. Sia $\pi_i: P \to Y_i$ la proiezione sulla $i$-esima componente. È ben noto che le proiezioni sono continue. Inoltre ovviamente $X_i=Y_i \sm \{\infty\}$ è chiuso in $Y_i$. Allora, per ogni $i \in I$ l'insieme $A_i=\pi_i^{-1}$ è un sottoinsieme chiuso e non-vuoto di $P$. È chiaro che la famiglia $\U=\{A_i \mid i \in I\}$ ha la proprietà dell'intersezione finita. Quindi per compattezza di $P$ abbiamo $\bigcap_{i \in I} A_i \neq \emptyset$. Poiché $\bigcap_{i \in I} A_i = \times_{i \in I} X_i$, per arbitrarietà di $(X_i)_{i \in I}$ segue \AC.\\
+\Implies{2}{1}: Si veda qualsiasi libro di topologia generale.
+\end{proof}
+\end{teo}
+
+
+
+\chapter{Disastri con Scelta}
+
+Nel capitolo precedente abbiamo presentato una serie di risultati che mostrano come rinunciare ad \AC porti a situazioni davvero spiacevoli. Ma allora qual è il motivo di tutta questa attenzione attorno all'Assioma di Scelta? Sappiamo che, supponendo \ZF consistente, \ZFC è consistente. Quindi da un punto di vista puramente formale, aggiungere \AC agli altri assiomi di \ZF non porta a nessuna contraddizione. Ma allora cosa ci trattiene dal lavorare senza alcuna preoccupazione in \ZFC?
+
+\section{Decomposizioni paradossali}
+
+L'intuizione è una guida importante per i matematici. Purtroppo, l'intuizione non sempre è affidabile. Esistono risultati matematici che sono controintuitivi. E nella maggior parte di essi, il principale ``colpevole'' è sempre lo stesso: l'Assioma di Scelta. Ovvero: molti risultati paradossali sono dimostrabili in \ZFC, ma non in \ZF. Quello forse più stupefacente (e preoccupante) di tutti è il famoso \emph{Paradosso di Banach-Tarski}, che stabilisce l'esistenza di decomposizioni davvero strane della palla unitaria e (decisamente) non solo. 
+
+In particolare, il Paradosso di Banach-Tarski dimostra (con una buona dose di spettacolarità) che in \ZFC non esiste una misura su $\R^3$ che sia allo stesso tempo finitamente additiva e invariante per isometrie. Purtroppo, entrambe le richieste sono davvero irrinunciabili se vogliamo modellizzare la nostra idea intuitiva di \emph{volume}, dato che la nostra esperienza ci dice che spostando uno stesso oggetto da una posizione ad un'altra, le sue dimensioni non cambiano.
+
+In realtà, lo stesso risultato era già stato ottenuto da Hausdorff, ma, come vedremo, in modo meno elegante.\\
+
+Purtroppo, la dimostrazione completa e dettagliata di questi risultati è composta di molti lemmi estremamente tecnici, la cui trattazione è al di fuori degli scopi di questo lavoro. Vogliamo però descrivere le idee principali che stanno alla base di questi paradossi così affascinanti e così importanti, anche storicamente. Per i dettagli tecnici rimandiamo a \cite{Wag86:Herrlich}.
+
+\begin{defn}
+Sia $(X,d)$ uno spazio metrico. Una \emph{isometria} di $X$ è una funzione $f: X \to X$ biettiva tale che per ogni $x,y \in X$ vale $d(f(x),f(y))=d(x,y)$.\\
+Due sottoinsiemi $A,B \subseteq X$ si dicono \emph{congruenti} e si scrive $A \approx B$ se esiste un'isometria $f$ di $X$ tale che $f[A]=B$.
+\end{defn}
+
+Ricordiamo che $R^n$ è uno spazio metrico con la distanza indotta dal prodotto scalare standard.
+
+\begin{defn}
+Per ogni $n \in \N^+$, una \emph{misura $n-$dimensionale} è una funzione $\mu_n: \PP_b(\R^n) \to \R^+$, definita sull'insieme $\PP_b(\R^n)$ dei sottoinsiemi limitati di $\R^n$, che soddisfa le seguenti condizioni:
+\begin{itemize}
+\item[(M1)] $\mu_n$ è additiva, ovvero $\mu(A \cup B) = \mu(A) + \mu(B)$ per ogni $A,B \in \PP_b(\R^n)$ disgiunti.
+\item[(M2)] $\mu_n$ è invariante, ovvero $A \approx B$ implica $\mu_n(A)=\mu_n(B)$.
+\item[(M3)] $\mu_n([0,1]^n)=1$.
+\end{itemize}
+\end{defn}
+\
+\\
+
+\framebox{\textbf{NOTA:} In questa sezione lavoriamo, salvo indicazione contraria, in \ZFC.}
+\\
+\subsection{Decomposizione paradossale della Sfera unitaria}
+
+Hausdorff fu il primo a dimostrare che non esiste nessuna misura $3-$dimensionale (e di conseguenza neppure $n-$dimensionale per ogni $n \geq 3$ \footnote{Se per assurdo $\mu_n$ fosse una misura $n-$dimensionale con $n \geq 3$, allora $\mu_3: S \mapsto \mu_n(S \times [0,1]^{n-3})$ sarebbe una misura $3-$dimensionale.}). Ottenne questo risultato esibendo una decomposizione paradossale della sfera:
+
+
+\begin{teo_custom-title}[Teorema di Hausdorff sulla decomposizione della sfera unitaria\footnote{\cite{Hau14:Herrlich}}]\label{teo_hau_sfera}
+Esiste una partizione $\{A,B,C,D\}$ della sfera unitaria $S^2=\{(x,y,z) \in \R^3 \mid x^2+y^2+z^2=1\}$ tale che:
+\begin{enumerate}
+\item $A \approx B \approx C$.
+\item $A \approx (B \cup C)$.
+\item $D$ è numerabile.
+\end{enumerate}
+\end{teo_custom-title}
+
+Più avanti daremo un'idea della dimostrazione del teorema enunciato sopra. Prima però discutiamo alcune sue conseguenze.
+
+\begin{corollario}
+Non esiste nessuna funzione $\mu: \PP_b(S^2) \to \R^+$ che soddisfa (M1), (M2) e (M3') $\mu(S^2)>0$.
+\begin{proof}
+Supponiamo che esista una funzione $\mu$ che soddisfa (M1), (M2) e (M3'). La numerabilità di $D$ implica che esiste un'isometria $f$ della sfera $S^2$ (precisamente, una rotazione) tale che $D$ e $f[D]$ sono disgiunti\footnote{I punti di una sfera sono banalmente $2^{\aleph_0}$. Quindi esiste un asse di rotazione $r$ che non interseca nessun punto di $D$. Sia $f$ una rotazione di angolo $\theta$ attorno a $r$. Se per assurdo si avesse che per ogni $\theta \in (0;\pi)$ esistono $d_1, d_2 \in D$ tali che $r(d_1)=d_2$, allora la funzione $f : (0;\pi) \to D \times D$, $\theta \mapsto (d_1,d_2)$ sarebbe ovviamente iniettiva, contraddizione (ogni intervallo non banale di $\R$ è equipotente a $\R$). Si noti che per definire $f$ abbiamo usato \AC.}. Allora $D_1=(D \cup f[D])$ è un sottoinsieme numerabile di $S^2$ tale che $\mu(D_1)= 2\mu(D)$. Ripetendo lo stesso processo si ottiene, per ogni $n \in \N^+$, un sottoinsieme numerabile $D_n$ di $S^2$ tale che $\mu(D_n)=2^n \mu(D)$. Poiché $\mu(D_n) \leq \mu(S^2)$ per ogni $n$ (la monotonia di $\mu$ è conseguenza immediata dell'additività), questo implica $\mu(D)=0$. Quindi: $\mu(S^2)=\mu(A)+\mu(B)+\mu(C)=3 \mu(A)$ e $\mu(S^2)=\mu(B \cup C) + \mu(B) + \mu(C) = 4 \mu(A)$. Quindi $\mu(A)=0$, e perciò $\mu(S^2)=0$, contraddizione.
+\end{proof}
+\end{corollario}
+
+\begin{corollario}
+Non esiste nessuna misura $3-$dimensionale.
+\begin{proof}
+Se $\mu_3$ fosse una misura $3-$dimensionale, allora la funzione $\mu: \PP_b(S^2) \to \R^+$ definita da 
+\[
+\mu(A)=\mu_3 \big( \{(\lambda x, \lambda y, \lambda z) \mid (x,y,z) \in A \textbf{ e } 0<\lambda \leq 1\} \big)
+\]
+soddisferebbe (M1), (M2)	e (M3'), contraddicendo il corollario appena mostrato.
+\end{proof}
+\end{corollario}
+
+Riguardando al Teorema di Hausdorff \ref{teo_hau_sfera}, osserviamo che la presenza dell'insieme numerabile $D$ riduce in qualche modo la sua eleganza. Esiste un risultato più ``raffinato''? Sierpiński\footnote{Sie48:Herrlich} ha dimostrato che esistono partizioni
+\begin{itemize}
+\item[] $\PP_1=\{A_1,...,A_6,B_1,...,B_4\}$,
+\item[] $\PP_2=\{C_1,...,C_6\}$,
+\item[] $\PP_3=\{D_1,...,D_4\}$
+\end{itemize}
+di $S^2$ tali che 
+\begin{enumerate}
+\item $A_i \approx C_i$ per $i=1,...,6$.
+\item $B_i \approx D_i$ per $i=1,...,4$.
+\end{enumerate}
+
+Sierpiński riuscì quindi a evitare l'uso di un insieme numerabile, ma utilizzò comunque un numero di pezzi maggiore rispetto a quelli davvero necessari, come mostrato da Robinson:
+
+\begin{teo_custom-title}[Teorema di Robinson sulla decomposizione della sfera\footnote{\cite{Rob47:Herrlich}}]
+Esiste una partizione $\{A_1,A_2,B_1,B_2\}$ della sfera unitaria, composta di pezzi connessi e localmente connessi, tale che 
+\begin{enumerate}
+\item $A_1 \approx A_2 \approx A_1 \cup A_2$ e 
+\item $B_1 \approx B_2 \approx B_1 \cup B_2\,$.
+\end{enumerate}
+\end{teo_custom-title}
+
+Questo è in qualche modo il migliore (o il peggiore?) risultato possibile. Per dirlo con le parole dello stesso Robinson:
+\begin{aquote}{Robinson, \cite{Rob47:Herrlich}}
+\emph{Thus we may cut $S^2$ into four pieces, and reassemble them in pairs to form two copies of $S^2$. We cannot use fewer than four pieces, since we cannot form a copy $S^2$ out of a single piece which is not all of $S^2$. Thus for the surface problem, the minimum number of pieces in which to cut $S^2$ is four."}
+\end{aquote}
+
+
+
+\subsection{Gruppi indisciplinati}
+
+Dopo che Banach e Tarski\footnote{\cite{BaTa24:Herrlich}} ebbero migliorato la costruzione di Hausdorff, ottenendo una decomposizioni di enti $3-$dimensionali più semplice e impressionante, von Neumann\footnote{	\cite{vNeu29:Herrlich}} mostrò che, sotto \AC, la struttura del gruppo delle isometrie di $\R^3$ è responsabile dell'esistenza di queste decomposizioni paradossali, e di conseguenza anche della non esistenza di misure $3-$dimensionali. Tale gruppo contiene un gruppo libero con due generatori, e questo fatto è la causa di tutti i guai:
+\begin{aquote}{von Neumann, \cite{vNeu29:Herrlich}}
+\emph{``Apparentemente la natura dello spazio euclideo cambia bruscamente quando raggiunge la dimensione $3$: per $n<3$, esso ammette un concetto generale di misura, per $n \geq 3$ non è più così!\\
+\\
+Mostrare ciò, ovvero che la spiegazione più profonda di questo strano fenomeno è una peculiarità riguardante la teoria dei gruppi e specifica del gruppo delle isometrie $n-$dimensionali, è il fine principale di questo articolo.\\
+...\\
+Il brusco cambiamento nella natura dello spazio euclideo quando raggiunge e sorpassa la dimensione $3$ è semplicemente causato dal fatto che il gruppo $O_n$ delle isometrie — l'unico che è stato preso in considerazione finora — è ``risolvibile'' per $n=1,2$, ma contiene un gruppo libero con due generatori $\sigma, \tau$ per $n=3,4,...$''}
+\end{aquote}
+\ \\
+\begin{defn}\
+\begin{enumerate}
+\item Il \emph{gruppo libero $F_2$ su due generatori} $a$ e $b$ è l'insieme di tutte le parole $x_1 x_2...x_n$ formate da lettere $a,b,a^{-1},b^{-1}$ tali che $a$ e $a^{-1}$ non sono mai adiacenti, come anche $b$ e $b^{-1}$. L'operazione considerata è la seguente: se $w=x_1...x_n$ e $v=y_1...y_m$ sono elementi di $F_2$, allora $w \cdot v$ è ottenuto con i seguenti passaggi:\\
+Passo 1: Si concatenano $w$ e $v$, ottenendo $x_1...x_n y_1...y_m$;\\
+Passo 2: Si rimuovono $x_n$ e $y_1$ se e solo se $\{x_n,y_1\}=\{a,a^{-1}\}$ oppure $\{x_n,y_1\}=\{b,b^{-1}\}$;\\
+Passo 3: Si ripete il passo 2 finché non si ottiene un elemento di $F_2$.\\
+L'elemento neutro è la \emph{parola vuota}, ovvero la parola che non contiene nessuna lettera, e viene indicata con $\Lambda$.
+\item $x \cdot Y=\{x \cdot y \mid y \in Y\}$ per $x \in F_2$ e $Y \subseteq F_2$.
+\item Due sottoinsiemi $X,Y \subseteq F_2$ si dicono \emph{congruenti}, in simboli $X \approx Y$, se esiste qualche $z \in F_2$ tale che $Y=z \cdot X$.
+\end{enumerate}
+\end{defn}
+
+\begin{teo}
+Esiste una partizione $\{A,B,C,D\}$ del gruppo libero $F_2$ tale che:
+\begin{enumerate}
+\item $A \approx (A \cup C \cup D)$.
+\item $C \approx (A \cup B \cup C)$.
+\end{enumerate}
+\begin{proof}
+Per illustrare allo stesso tempo l'idea intuitiva che sta dietro alla dimostrazione e la difficoltà tecnica che è necessario superare, presentiamo prima un argomento che non funziona per un pelo.
+
+\textbf{Tentativo:} Definiamo
+
+$A=\{x_1...x_n \in F_2 \mid x_1=a\}$,
+
+$B=\{x_1...x_n \in F_2 \mid x_1=a^{-1}\}$,
+
+$C=\{x_1...x_n \in F_2 \mid x_1=b\}$,
+
+$D=\{x_1...x_n \in F_2 \mid x_1=b^{-1}\}$.
+
+Osserviamo che $\{A,B,C,D\}$ è quasi una partizione di $F_2$. Manca solo la parola vuota $\Lambda$. Inoltre:
+
+$A \approx a^{-1} \cdot A = A \cup C \cup D \cup \{\Lambda\}$,
+
+$C \approx b^{-1} \cdot C = A \cup B \cup C \cup \{\Lambda\}$.\\
+
+Quindi, la parola vuota impedisce alla dimostrazione di essere del tutto corretta. Ecco allora una versione leggermente meno simmetrica, e quindi meno elegante, ma corretta:
+
+\textbf{Dimostrazione:} Definiamo $A$ e $B$ come prima, ma ridefiniamo $C$ e $D$ così:
+
+$C=\{x_1...x_n \in F_2 \mid x_1=b\} \cup \{b^{-n} \mid n \in \N\}$,
+
+$D=F_2 \sm (A \cup B \cup C) = \{x_1...x_n \in F_2 \mid x_1=b^{-1}\} \sm \{b^{-n} \mid n \in \N\}$,
+
+dove $b^0=\Lambda$.
+
+Allora $\{A,	B,C,D\}$ è una partizione di $F_2$, e:
+
+$A \approx a^{-1} \cdot A = A \cup C \cup D$,
+
+$C \approx b^{-1} \cdot C = A \cup B \cup C$.
+\end{proof}
+\end{teo}
+
+
+\begin{defn}
+Sia $X$ un insieme e sia $G$ un gruppo che agisce su $X$. Diciamo che $x \in X$ è un \emph{punto fisso} per $g \in G$ se $g(x)=x$. Diciamo che $G$ agisce \emph{senza punti fissi} se l'unico elemento di $G$ che ha un punto fisso è l'elemento neutro.\\
+Se $A,B \subseteq X$ ed esiste $g \in G$ tale che $g[A]=B$, allora scriviamo $A \approx B$.
+\end{defn}
+
+I gruppi ``indisciplinati'' che agiscono senza punti fissi su un insieme $X$ portano a decomposizioni paradossali di $X$, come mostra il seguente:
+
+\begin{teo}\label{decomp_F2}
+Se $F_2$ agisce su $X$ senza punti fissi, allora esiste una partizione $\{A^*,B^*,C^*,D^*\}$ di $X$ tale che 
+\begin{enumerate}
+\item $A^* \approx (A^* \cup C^* \cup D^*)$.
+\item $C^* \approx (A^* \cup B^* \cup C^*)$.
+\end{enumerate}
+\begin{proof}
+Sia $\{A,B,C,D\}$ una partizione di $F_2$ tale che $A \approx (A \cup C \cup D)$ e $C \approx (A \cup B \cup C)$. Per ogni $x \in X$, sia $\orb(x)=\{g(x) \mid g \in F_2\}$ l'orbita di $x$. Allora $\{\orb(x) \mid x \in X\}$ è una partizione di $X$. Grazie ad \AC esiste $S \subseteq X$ che contiene esattamente un elemento di ogni orbita. Definiamo
+\[
+A^*=\{g(x) \mid g \in A \text{ e } x \in S\}
+\]
+e analogamente $B^*$, $C^*$ e $D^*$. Siccome $F_2$ agisce su $X$ senza punti fissi, l'insieme $\{A^*,B^*,C^*,D^*\}$ è una partizione di $X$. Ovviamente valgono:
+\[
+A^* \approx (A^* \cup C^* \cup D^*) \; \text{ e } \; C^* \approx (A^* \cup B^* \cup C^*).
+\]
+\end{proof}
+\end{teo}
+
+
+
+\subsection{Decomposizione paradossale della Palla unitaria}
+
+Il motivo per cui abbiamo parlato delle strane proprietà dei gruppi liberi che agiscono senza punti fissi è il seguente: il gruppo delle isometrie di $\R^3$ contiene un sottogruppo che è isomorfo a $F_2$ e agisce sulla palla unitaria $B_3=\{(x,y,z) \in R^3 \mid x^2+y^2+z^2 \leq 1\}$.
+
+Se questa azione fosse senza punti fissi, allora il Teorema \ref{decomp_F2} ci procurerebbe immediatamente una decomposizione paradossale di $B_3$ in quattro pezzi. Ma le rotazioni \emph{hanno} punti fissi (fortunatamente, non troppi), e questo causa delle complicazioni. E infatti Robinson ha mostrato che una tale decomposizione in soli quattro pezzi non esiste. Nonostante questo però, Banach e Tarski furono in grado di dimostrare il seguente:
+
+\begin{teo}
+Esistono partizioni
+\begin{itemize}
+\item[] $\PP_1=\{A_1,...,A_n,B_1,...,B_m\}$,
+\item[] $\PP_2=\{C_1,...,C_n\}$,
+\item[] $\PP_3=\{D_1,...,D_m\}$
+\end{itemize}
+di $B_3$ tali che 
+\begin{enumerate}
+\item $A_i \approx C_i$ per $i=1,...,n$.
+\item $B_i \approx D_i$ per $i=1,...,m$.
+\end{enumerate}
+\end{teo}
+
+Quanti pezzi $n+m$ sono necessari per ``duplicare'' una palla?
+
+\begin{itemize}
+\item Stromberg mostrò che $40=24+16$ sono sufficienti,
+\item Bruckner e Ceder ne usarono $30=18+12$,
+\item von Neumann ne usò $9=5+4$,
+\item Sierpiński ne usò $8=5+3=6+2$,
+\item Robinson\footnote{\cite{Rob47:Herrlich}} diede la risposta definitiva, ovvero $5=3+2$:
+\end{itemize}
+
+\begin{teo_custom-title}[Teorema di Robinson sulla decomposizione della palla unitaria]
+Esistono partizioni
+\begin{itemize}
+\item[] $\PP_1=\{A_1,A_2,A_3,B_1,B_2\}$,
+\item[] $\PP_2=\{C_1,C_2,C_3\}$,
+\item[] $\PP_3=\{D_1,D_2\}$
+\end{itemize}
+di $B_3$ tali che 
+\begin{enumerate}
+\item $A_i \approx C_i$ per $i=1,2,3$.
+\item $B_i \approx D_i$ per $i=1,2$.
+\end{enumerate}
+Inoltre, ogni pezzo è connesso e localmente connesso.
+\end{teo_custom-title}
+
+Come già accennato, Robinson mostrò anche che quattro pezzi non sono sufficienti.\\
+
+Terminiamo con una descrizione molto riassuntiva della dimostrazione sulla decomposizione della sfera.
+
+\begin{teo_custom-title}[Sketch di dimostrazione del Teorema di Hausdorff]\ \\
+Hausdorff, nella sua dimostrazione del Teorema \ref{teo_hau_sfera}, non fece uso di un sottogruppo libero del gruppo delle isometrie di $S^2$. Ne usò invece uno ``quasi'' libero, mostrando che esistono rotazioni $\alpha$ e $\beta$ di $S^2$ tali che $\alpha^2=\id=\beta^3$ sono le uniche relazioni del gruppo $G$ generato da $\{\alpha,\beta\}$. Ogni elemento $g \in G$ ha esattamente due punti fissi. L'unione di questi insiemi di punti fissi è proprio l'insieme numerabile $D$ dell'enunciato. Hausdorff prosegue poi costruendo accuratamente una partizione $\{A,B,C\}$ di $G$ tale che $\beta A = B$, $\beta^2 A = C$ e $\alpha A = B \cup C$. Se $X$ è un insieme ottenuto selezionando esattamente un elemento dall'orbita di ogni punto $x \in S^2 \sm D$, allora la partizione $\{A \cdot X, B \cdot X, C \cdot X\}$ di $S^2 \sm D$ ha le proprietà richieste.
+\end{teo_custom-title}
+
+\subsection{Il paradosso di Banach-Tarski}
+
+Grazie ai risultati della sezione precedente, qualsiasi palla $3-$dimensionale può essere ``duplicata''. Segue immediatamente che per ogni sottoinsieme limitato $A$ di $\R^3$ e per ogni palla $B$ di $\R^3$ esiste una partizione $\{A_1,...,A_n\}$ di $A$ e una partizione $\{B_1,...,B_n\}$ di un qualche sottoinsieme di $B$ tali che $A_i \approx B_i$ per ogni $i=1,...,n$. Quindi per ogni $A,B \subseteq \R^3$ che sono limitati e che contengono a loro volta una palla ciascuno, è possibile decomporre ognuno in un numero finito di pezzi e ``riassemblare'' questi pezzi per formare un sottoinsieme dell'altro.
+
+Il paradosso di Banach-Tarski afferma ancora di più. Diamo prima una definizione:
+
+\begin{defn}
+Due sottoinsiemi $A$ e $B$ di $\R^3$ si dicono \emph{equideomponibili}, in simboli $A \sim_e B$, se esistono partizioni $\{A_1,...,A_n\}$ di $A$ e $\{B_1,...,B_n\}$ di $B$ tali che $A_i \approx B_i$ per $i=1,...,n$.
+\end{defn}
+
+\begin{teo_custom-title}[Paradosso di Banach-Tarski\footnote{\cite{BaTa24:Herrlich}}] Ogni due sottoinsiemi limitati $A$ e $B$ di $\R^3$ che contengono ognuno una palla, sono equidecomponibili.
+\begin{proof}\renewcommand{\qedsymbol}{}
+Per le osservazioni appena fatte, $A$ e $B$ sono equidecomponibili ognuno con un qualche sottoinsieme dell'altro. Perciò il risultato segue immediatamente dal prossimo teorema.
+\end{proof}
+\end{teo_custom-title}
+
+\begin{teo}\footnote{\cite{Bana23:Herrlich}. Si osservi che la dimostrazione di questo teorema non fa uso di \AC.} Se due sottoinsiemi $A$ e $B$ di $\R^3$ sono ognuno equidecomponibile in qualche sottoinsieme dell'altro, allora $A$ e $B$ sono equidecomponibili.
+\begin{proof}
+Sia $\{A_1,...,A_n\}$ una partizione di $A$ e sia $\{B_1,...,B_n\}$ una partizione di un sottoinsieme $B'$ di $B$ tale che $A_i \approx B_i$ per ogni $i$. Allora per ogni $i=1,...,n$ esiste un'isometria $f_i: A \to B_i$. Quindi la mappa $f: A \to B'$ definita da $f(a)=f_i(a)$ per $a \in A_i$ è una biezione che soddisfa:
+\begin{itemize}
+\item[(A)] $C \sim_e f[C]$ per ogni $C \subseteq A$.
+\end{itemize}
+Analogamente, esiste una biezione $g: B \to A'$ con $A' \subseteq A$ che soddisfa la condizione
+\begin{itemize}
+\item[(B)] $D \sim_e g[D]$ per ogni $D \subseteq B$.
+\end{itemize}
+Definiamo per ricorsione una sequenza $(C_n)_{n \in \N}$ di sottoinsiemi $C_n$ di $A$ così:
+\[
+  \begin{cases} 
+      \hfill C_0 		\hfill & = A \sm A' \\
+      \hfill  C_{n+1}	\hfill & = g[f[C_n]]. \\
+  \end{cases}
+\]
+Consideriamo $C=\bigcup_{n \in \N} C_n$. Si verifica facilmente che $A\! \sm\! C = g[B\! \sm\! f[C]]$. Allora la condizione (B) implica $A\! \sm\! C \sim_e B\! \sm\! f[C]$. Poiché (A) implica $C \sim_e f[C]$, segue che $A=(A \sm C) \cup C \sim_e (B \sm f[C]) \cup f[C]=B$.
+\end{proof}
+\end{teo}
+
+
+\subsection{Di chi è la colpa}
+
+Come abbiamo visto in tutta questa sezione, in \ZFC si può dimostrare l'esistenza già in $\R^3$ di decomposizioni geometriche che sono controintuitive e obiettivamente piuttosto fastidiose.
+
+È lecito chiedersi allora chi sia il reale colpevole di tutto questo. È davvero \AC? La risposta è: sì.
+
+Infatti, la misura di Lebesgue in $\R^3$ è additiva, invariante e tale che il cubo unitario ha misura 1. Quindi i paradossi presentati implicano che esistono sottoinsiemi limitati di $\R^3$ che non sono misurabili. Si dimostra però che esistono modelli\footnote{Ad esempio M38 in \cite{HoRu98:Herrlich}.} di \ZF in cui tutti i sottoinsiemi limitati di $\R^3$ sono misurabili secondo Lebesgue. Perciò il responsabile è davvero \AC.
+
+
+
+\chapter{Assioma delle Scelte Dipendenti}
+
+
+Nel capitolo precedente abbiamo visto diversi problemi che si incontrano assumendo \AC. Per questi ed altri motivi, alcuni matematici non accettano l'Assioma di Scelta. Non necessariamente però rifiutano anche forme più deboli di ``scelta''.
+
+Uno dei modi naturali per indebolire \AC è ridurre la taglia massima dell'insieme di indici per il quale è valido.  Un esempio degno di nota\footnote{Si confronti la prossima definizione con la citazione di E. Borel a pagina \pageref{cit_borel}.} è \CC.
+
+\begin{defn}
+\CC, l'Assioma delle Scelte Numerabili, afferma che per ogni successione $(X_n)_{n \in N}$ di insiemi non vuoti, il prodotto cartesiano generalizzato $\times_{n \in \N} X_n$ è non vuoto.
+\end{defn}
+
+\begin{oss}\label{oss_cc_unione_num}
+Si osservi che nella nostra dimostrazione della Proposizione \ref{unione_num}) è sufficiente disporre di \CC. Ovvero, \ZF+\CC dimostra che unione numerabile di insiemi numerabili è numerabile.
+\end{oss}
+
+Strettamente correlato a \CC è \DC:
+
+\begin{defn}
+\DC, l'Assioma delle Scelte Dipendenti, afferma che per ogni coppia $(X,\varrho)$ dove $X$ è un insieme non vuoto e $\varrho$ è una relazione su $X$ tale che 
+\begin{center}
+per ogni $x \in X$ esiste $y \in X$ tale che $x \varrho y$
+\end{center}
+esiste una successione $(x_n)_{n \in \N}$ in $X$ tale che $x_n \varrho x_{n+1}$ per ogni $n \in \N$.
+\end{defn}
+
+\begin{prop}\ 
+\begin{enumerate}
+\item \AC $\Rightarrow$ \DC.
+\item \DC $\Rightarrow$ \CC.
+\end{enumerate}
+\begin{proof}
+\begin{enumerate}
+\item Sia $(X,\varrho)$ come in \DC. Allora, per ogni $x \in X$ l'insieme $S_x=\{y \in X \mid x \varrho y\}$ è non vuoto. Quindi, per \AC, esiste un elemento $(s_x)_{x \in X} \in \times_{x \in X} S_x$. Scegliamo arbitrariamente $x_0 \in X$ e definiamo per ricorsione la sequenza $(x_n)_{n \in \N}$ data da $x_{n+1}:=s_{x_n}$. Allora $(x_n)_{n \in \N}$ ha la proprietà richiesta.
+\item Sia $(A_n)_{n \in \N}$ una successione di insiemi non vuoti. Definiamo
+\[
+A = \biguplus_{n \in \N} A_n
+\]
+dove $\uplus$ indica l'unione disgiunta. Sia $\varrho$ la relazione su $A$ definita da
+\[
+(x,m) \ \varrho \ (y,n) \iff n=m+1
+\]
+Osserviamo che 
+\begin{center}
+per ogni $a \in A$ esiste $b \in A$ tale che $a \varrho b$
+\end{center}
+Per \DC esiste una successione $(x_n)_{n \in \N}$ in $A$ tale che $x_n \varrho x_{n+1}$ per ogni $n \in \N$. Se scriviamo $x_n = (a_n, N_n)$ per ogni $n \in \N$, dalla definizione di $\varrho$ segue che $N_{n+1} = N_n + 1$. Una semplice induzione mostra che $N_n = N+n$ per qualche $N \in \N$. Perciò $x_n \in A_{n+N}$ per ogni $n \in \N$. Se fosse vero che $N=0$ avremmo finito, ma questo non è necessariamente vero. Il resto della dimostrazione risolve questo problema.
+
+Il prodotto cartesiano $A_0 \times ... \times A_{N-1}$ è non vuoto. Quindi esiste una sequenza finita $y_0,...,y_{N-1}$ con $y_i \in A_i$ per ogni $i<N$. Definiamo allora $y_n:=x_{n-N}$ per ogni $n \geq N$. Allora $y_n \in A_n$ per ogni $n \in \N$, ovvero $(x_n)_{n \in \N} \in \times_{n \in \N} A_n$.
+\end{enumerate}
+\end{proof}
+\end{prop}
+
+Nessuna delle implicazioni dell'ultima proposizione è invertibile. Infatti esistono modelli che soddisfano \DC ma non \AC (ad esempio M38 in \cite{HoRu98:Herrlich}) e modelli che soddisfano \CC ma non \DC (ad esempio N38 in \cite{HoRu98:Herrlich}).
+
+\section*{\DC e Löwenheim-Skolem}
+
+Lo scopo di questa sezione è dimostrare un risultato poco conosciuto: \DC è equivalente al Teorema di Löwenheim-Skolem all'ingiù. Riteniamo questa equivalenza davvero interessante, in quanto mette in (forte) relazione due principi molto importanti per la Logica Matematica.
+
+La dimostrazione che seguiremo quasi fedelmente si può trovare nell'articolo di marzo 2014 di Asaf Karagila\footnote{\cite{Kar2014:web}}. Nello stesso articolo, Karagila afferma che Christian Espíndola aveva già provato questo risultato, estendendolo. Inoltre, nelle sue note (non ancora pubblicate), dichiara che l'equivalenza era già nota, seppur non largamente, e appare in un libro di G. Boolos.
+
+\paragraph{Notazione e nozioni di base}
+
+In questa sezione daremo per scontata una minima famigliarità con i concetti della logica del prim'ordine. Procediamo tuttavia con una rapida rassegna dei simboli usati.
+
+Se $\LL$ è un linguaggio, denotiamo le $\LL$-strutture con lettere gotiche $\mathfrak{M, N, U,...}$ e i loro universi con le rispettive lettere $M, N, U,...$
+
+Per facilitare la lettura, scriviamo $\vec a \sse A$ per indicare che $\vec a$ è una tupla finita in $A$ di lunghezza arbitraria.
+
+Diciamo che $\U$ è una \emph{sottostruttura elementare} di $\M$ se è una sottostruttura e per ogni $\vec a \sse A$ e $\phi(\vec x)$ vale $\M \models \phi(\vec a) \iff \U \models \phi (\vec a)$\footnote{Si osservi che $\vec a$ può essere anche la tupla vuota. Quindi la definizione di sottostruttura elementare coinvolge anche le formule chiuse, ovvero gli enunciati. Perciò se $\U$ è sottostruttura elementare di $\M$ abbiamo immediatamente che soddisfano gli stessi enunciati, ovvero sono \emph{elementarmente equivalenti}, in simboli $\U \equiv \M$. Segue che se una delle due strutture è modello per una teoria, anche l'altra lo è.}. Se $\M$ è una $\LL$-struttura, $A$ è un sottoinsieme di $M$, e $\phi$ è una $\LL$-formula della forma $\exists y \psi(\vec x, y)$, diciamo che $f$ è una $A$\emph{-funzione di Skolem} per $\phi$ se $\dom f = \{\vec a \sse A \mid \M \models \exists y \psi(\vec a, y)\}$, $\ran f \sse M$ e per ogni $\vec a \in \dom f$ vale $\M \models \psi(\vec a, f(\vec a))$.
+
+
+\begin{lemma}\label{DC_num}
+Sia $X$ un insieme numerabile e sia $\varrho$ una relazione su $X$ tale che 
+\begin{center}
+per ogni $x \in X$ esiste $y \in X$ tale che $x \varrho y$.
+\end{center}
+Allora esiste una successione $(x_n)_{n \in \N}$ in $X$ tale che $x_n \varrho x_{n+1}$ per ogni $n \in \N$.
+\begin{proof}
+Sia $\{y_n \mid n \in \N\}$ una enumerazione di $X$. Definiamo la successione $(x_n)_{n \in \N}$ per ricorsione: sia $x_0 = y_0$ e supponiamo di aver definito $x_i$ per ogni $i < n+1$. Per ipotesi l'insieme $\{x \in X \mid x_n \varrho x\}$ è non vuoto. Allora definiamo $x_{n+1}$ come l'$y_j$ di quell'insieme che ha indice minimo rispetto alla nostra enumerazione. Ovviamente la successione $(x_n)_{n \in \N}$ ha la proprietà richiesta.
+\end{proof}
+\end{lemma}
+
+\begin{defn}
+\LS, il Principio di Löwenheim-Skolem all'ingiù, afferma che se $\LL$ è un linguaggio numerabile e $T$ è una $\LL$-teoria, allora per ogni modello infinito $\M$ di $T$ esiste una sottostruttura elementare di $\M$ che è numerabile (e che quindi è ovviamente modello di $T$).
+\end{defn}
+
+\begin{teo} Sono equivalenti:
+\begin{equivalence}
+\punto{1} \LS.
+\punto{2} \DC.
+\end{equivalence}
+\begin{proof}\ \\
+\Implies{1}{2} Sia $X$ un insieme e sia $\varrho$ una relazione su $X$ tale che 
+\begin{center}
+per ogni $x \in X$ esiste $y \in X$ tale che $x \varrho y$.
+\end{center}
+Allora possiamo vedere $(X,\varrho)$ come un modello di della $\LL$-teoria, con $\LL=\{\varrho\}$, il cui unico enunciato è 
+\[
+\forall x \exists y (x \varrho y).
+\]
+Per ipotesi esiste $(X',\varrho')$ sottostruttura elementare numerabile di $(X,\varrho)$. Per elementarità anche $X'$ soddisfa $\forall x \exists y (x \varrho' y)$. Quindi per il Lemma \ref{DC_num} esiste una successione $(x_n)_{n \in \N}$ in $X'$ tale che $x_n \varrho' x_{n+1}$ per ogni $n \in \N$. Poiché $X' \sse X$, $(x_n)_{n \in \N}$ è una successione anche in $X$. Ma per definizione di sottostruttura, $\varrho'$ e $\varrho$ coincidono sugli elementi di $X'$, e quindi su tutti gli elementi di $(x_n)_{n \in \N}$. Perciò $x_n \varrho x_{n+1}$ per ogni $n \in \N$.\\
+\Implies{2}{1} Sia $\LL$ un linguaggio numerabile e sia $T$ una $\LL$-teoria. Sia $\M$ un modello infinito per $T$. Possiamo assumere senza perdità di generalità che $\LL$ contenga solo simboli relazionali. Infatti, possiamo vedere i simboli di costante semplicemente come relazioni $0$-arie. Inoltre, possiamo vedere le funzioni come relazioni (ricordiamo che le funzioni \emph{sono} relazioni, per le quali si aggiunge la richiesta di esistenza e unicità dell'immagine). Poiché, se $\cal R$ è una relazione, affermare che ``$\cal R$ è una funzione'' è esprimibile al prim'ordine mediante la formula $\forall \vec x \, \exists y (\vec x R y)$, questa è preservata per sottostrutture elementari, e quindi $\cal R$ sarà una funzione anche nella sottostruttura elementare trovata.
+
+Definiremo simultaneamente per induzione una successione crescente di sottostrutture di $\M$ e una successione di famiglie di funzioni di Skolem. Il modo in cui definiremo questi oggetti ci permetterà di dimostrare che l'unione di tutte le sottostrutture è una sottostruttura elementare di $\M$. Tale sottostruttura sarà banalmente numerabile per costruzione.
+
+Sia $A_0= \emptyset$. Per ogni $\phi$ scegliamo una $A_0$-funzione di Skolem e chiamiamo $F_0$ la famiglia di tutte queste funzioni. Si osservi che possiamo effettuare questa scelta grazie a \CC, dato che le formule in un linguaggio numerabile sono in quantità numerabile\footnote{Se il lettore ritiene poco chiara questa affermazione, osservi che le formule si possono interpretare come stringhe finite.}. 
+
+Supponiamo ora che $A_k$ e $F_k$ siano stati definiti e siano tali che
+\begin{itemize}
+\item[(a)] $A_k$ è numerabile.
+\item[(b)] $F_k$ contiene una ed una sola $A_k$-funzione di Skolem per ogni formula in $\LL$.
+\end{itemize}
+Sia $A_{k+1} := A_k \cup \bigcup \{\ran f \mid f \in F_k\}$. Ovviamente $A_{k+1}$ è numerabile in quanto le $A_k$-funzioni di Skolem sono in quantità numerabile e hanno dominio numerabile (cfr. Osservazione \ref{oss_cc_unione_num}). Grazie a \CC, per ognuna di queste formule scegliamo allora delle $A_{k+1}$-funzioni di Skolem e definiamo $F_{k+1}$ come la famiglia di tali funzioni, assicurandoci che estendano quelle in $F_k$, ovvero: se $f \in F_k$ è una $A_k$-funzione di Skolem per $\phi$ e $f' \in F_{k+1}$ è una $A_{k+1}$-funzione di Skolem per $\phi$, allora imponiamo che per ogni $\vec a \sse A_k$ le funzioni $f$ e $f'$ siano compatibili, i.e. $f(\vec a)=f'(\vec a)$.
+
+Sia ora $A = \bigcup_{k \in \N} A_k$. Allora $A$ è numerabile in quanto unione numerabile di insiemi numerabili. Sia $\U$ la sottostruttura di $\M$ il cui universo è $A$. Per definizione di sottostruttura, l'interpretazione delle relazioni è semplicemente la restrizione ad $A$ delle relazioni di $\M$. Ci basta mostrare che $\U$ è sottostruttura elementare di $\M$. Procediamo per induzione sulla complessità di $\psi$, dove $\psi$ è una formula arbitraria in $\LL$:
+\begin{itemize}
+\item Se $\psi$ è atomica, allora è del tipo $R(\vec x)$ per qualche simbolo di relazione $R$. Per quanto appena detto, vale $\M \models \psi(\vec a) \iff \U \models \psi(\vec a)$ per ogni $\vec a \sse A$.
+\item Se $\psi$ è negazione o congiunzione di altre formule, l'affermazione segue banalmente per la tavola di verità della negazione e della congiunzione, insieme all'ipotesi induttiva.
+\item Se $\psi(\vec x)$ è $\exists y \theta(\vec x, y)$ e $\vec a \sse A$, allora esiste un $k$ tale che $\vec a \sse A_k$ ed esiste $f \in F_k$ che è una $A_k$-funzione di Skolem per $\phi$. Se $\M \models \phi(\vec a)$, allora $b=f(\vec a)$ è tale che $\M \models \theta(\vec a, b)$ e $b \in A_{k+1} \sse A$. Per ipotesi induttiva $\U \models \theta(\vec a, b)$ e perciò $\U \models \psi(\vec a)$. Viceversa, se $\U \models \psi(\vec a)$ allora esiste qualche $b \in A$ tale che $\U \models \theta(\vec a, b)$, quindi per ipotesi induttiva $\M \models \theta(\vec a, b)$ e perciò $\M \models \psi(\vec a)$, come richiesto.
+\end{itemize}
+\end{proof}
+\end{teo}
+
+
+\subsection{Il paradosso di Skolem}
+
+Abbiamo dimostrato che \DC (e quindi \AC) implica il Teorema di Löwenheim-Skolem all'ingiù. Da questo teorema segue un famoso risultato apparentemente contraddittorio, detto \emph{Paradosso di Skolem} e messo in luce da T. Skolem stesso nel 1922\footnote{\cite{Sko22:wiki}}.\\
+
+Se \ZFC fosse incoerente, allora sarebbe davvero un grosso problema!\footnote{Non possiamo essere certi che \ZFC sia coerente, dato che per il secondo teorema di incompletezza di Gödel è impossibile provare la consistenza di \ZFC lavorando in \ZFC stesso, a meno che \ZFC non sia incoerente: in quel caso, siccome una teoria incoerente dimostra qualsiasi cosa, \ZFC dimostrerebbe anche la propria coerenza.} Supponiamo allora che \ZFC abbia un modello (ovviamente infinito). Per \LS\footnote{Il linguaggio della teoria \ZFC è semplicemente $\LL=\{\in\}$, quindi è numerabile.}, esiste una sua sottostruttura elementare numerabile. Ovvero esiste un modello $\M$ numerabile per \ZFC. Ma Cantor ha dimostrato che esistono insiemi non numerabili (e la dimostrazione è fatta in \ZFC)! Quindi $\M$ deve soddisfare l'enunciato ``esiste un insieme più che numerabile'', perciò $\M$ è numerabile ma contiene un insieme più che numerabile!
+
+Sembra proprio che qualcosa non vada. Ma in realtà la contraddizione è solo apparente. Cerchiamo di capire perché, descrivendo la situazione in modo più preciso. 
+Dire che ``Cantor ha dimostrato che esistono insiemi più che numerabili'' significa in realtà dire che Cantor ha dimostrato
+\begin{center}
+\ZFC $\vdash$ $\exists X [\neg \exists f \phi(X,f)]$
+\end{center}
+dove $\phi$ è la formula nel linguaggio $\LL=\{\in\}$ che dice ``$f$ è un insieme $\wedge$ $f$ è una funzione $\N \to X$ $\wedge$ $f$ è suriettiva''. È facile controllare che questa affermazione è effettivamente esprimibile con una $\LL$-formula $\phi(x,y)$ del prim'ordine. Grazie al Teorema di Correttezza (Gödel\footnote{Si veda eventualmente \url{http://web.mat.bham.ac.uk/R.W.Kaye/logic/soundness}.}), ogni modello di \ZFC deve soddisfare la formula $\exists X [\neg \exists f \phi(X,f)]$, e perciò, in effetti, anche $\M$. Sia allora $\overline{X}$ un tale insieme di $\M$. Vorremmo dire che anche nel nostro ``modello esterno'' in cui lavoriamo quell'insieme è più che numerabile, ma questo non è necessariamente vero (e anzi, in questo caso \emph{sicuramente} non è vero, altrimenti avremmo davvero una contraddizione)! Infatti, è possibile (ed è proprio così) che il nostro modello esterno, che è molto più grande, contenga un insieme che è proprio una suriezione $\N \to \overline{X}$. Essenzialmente, dall'esterno ``vediamo'' che $\overline{X}$ è numerabile, ma $\M$, dal suo interno, non se ne accorge. Un po' più precisamente, possiamo dire che il modello esterno ha molte funzioni suriettive $\N \to \overline{X}$, ma $\M$ è talmente piccolo che non ne contiene nessuna. 
+
+Una trattazione del tutto rigorosa richiederebbe concetti di Teoria degli Insiemi piuttosto tecnici, quindi ci limitiamo a questa spiegazione abbastanza informale, sperando che risulti sufficientemente chiara.
+
+Terminiamo indicando che, al giorno d'oggi, la comunità matematica non ritiene il paradosso di Skolem un risultato problematico, ma quando Skolem pubblicò il suo lavoro nel 1922, nonostante avesse già compreso la causa del problema così come spiegata da noi, vide in questo risultato una debolezza della teoria degli insiemi (del prim'ordine), e infatti utilizzò il paradosso per criticarne il ruolo di sistema fondazionale.
+
+
+
+\chapter{Cappelli e prigionieri}
+
+Vogliamo concludere questo lavoro trattando un divertente puzzle riguardante \AC e la Teoria della Probabilità. Il puzzle è stato preso da \url{cornellmath.wordpress.com}\footnote{L'indirizzo esatto della pagina è \url{http://cornellmath.wordpress.com/2007/09/13/the-axiom-of-choice-is-wrong/}.}. Iniziamo descrivendo un problema più semplice:
+\begin{flushleft}
+\emph{100 prigionieri vengono messi in fila. Ad ogni prigioniero viene permesso di guardare solo in avanti, in modo che egli possa vedere tutti coloro che lo seguono, ma nessuno di quelli che lo precedono. Una guardia appoggia un cappello sulla testa di ogni prigioniero, stando attento a non mostrare il colore del cappello al prigioniero che lo indossa. Il cappello può essere di colore nero o bianco, e la scelta del colore da parte della guardia avviene in modo casuale. Poi, partendo dal primo prigioniero (ovvero quello che può vedere tutti gli altri), chiede ad ogni prigioniero qual è il colore del proprio cappello. Ogni prigioniero diventa libero se indovina il proprio colore, altrimenti viene ucciso. Inoltre, ogni prigioniero può ascoltare la risposta di quelli che lo precedono e se il guardiano li ha liberati oppure no (quindi, una volta che il guardiano arriva da lui, egli conosce il colore di tutti i cappelli che lo precedevano, oltre ovviamente al colore di tutti quelli che lo seguono). Supponendo che a tutti i prigionieri sia permesso di decidere una comune strategia prima dell'assegnazione dei cappelli, qual è la strategia che salva più prigionieri possibile?}
+\end{flushleft}
+
+\noindent\textbf{Soluzione.} La soluzione più ingenua è quella in cui ogni prigioniero tenta a caso. In questo modo, il valore atteso di prigionieri che si salvano è $100/2=50$. Si può fare molto meglio: il primo prigioniero conta il numero totale di cappelli bianchi. Se è dispari, allora dice "bianco", altrimenti dice "nero". Il prigioniero successivo conta anch'egli il numero di cappelli bianchi che vede davanti a lui, e se la parità differisce da quella che ha urlato il primo prigioniero, allora sa che il suo cappello è bianco. Quindi il secondo prigioniero si salva. Il terzo può fare lo stesso ragionamento, in quanto ha sentito ciò che ha urlato il primo e conosce anche il colore del secondo. Proseguendo in questo modo risulta che tutti i prigionieri si salvano, eccetto il primo (la cui sorte dipende dalla fortuna).\\
+
+Passiamo ora alla variante che interessa a noi: 
+
+\begin{flushleft}
+\emph{Stavolta, anziché 100, i prigionieri sono in quantità infinita numerabile. Il guardiano si comporta allo stesso modo, ma stavolta i prigionieri non possono ascoltare ciò che dicono quelli che li precedono, e nemmeno sapere se hanno indovinato oppure no. In questa nuova situazione, qual è la strategia migliore?}
+\end{flushleft}
+
+Intuitivamente, non è possibile elaborare nessuna strategia sensata, dato che nessun prigioniero può ricevere alcun tipo di informazione da chiunque sappia di che colore è il suo cappello. Sembra quindi che tutti i prigionieri debbano tentare alla cieca. Ma in realtà, esiste una strategia per la quale tutti tranne un numero finito di prigionieri sopravvive!\\
+
+\noindent\textbf{Soluzione.} Innanzitutto, anziché pensare in termini di cappelli colorati, convertiamo "bianco" in 1 e "nero" in 0. Quindi, ogni possibile assegnazione di cappelli diventa in realtà una sequenza infinita di 1 e 0, ovvero un elemento di $2^\omega$. Definiamo una relazione di equivalenza su $2^\omega$ in questo modo: due sequenze sono equivalenti se e solo se differiscono al più per una quantità finita di entrate, ovvero se sono uguali da un certo punto in poi. Grazie all'Assioma di Scelta, scegliamo un rappresentante per ogni classe di equivalenza, e lo memorizziamo (o meglio, tutti i prigionieri scelgono gli stessi rappresentanti e li memorizzano). Ora, quando un prigioniero verrà messo in fila e osserverà i cappelli degli altri, sarà in grado di vedere tutta la sequenza tranne un numero finito di entrate (ovvero i cappelli di quelli che lo precedono), quindi potrà capire in quale classe di equivalenza sta la sequenza in questione. La strategia allora è quella di tentare il colore relativo alla propria posizione nella sequenza che era stata scelta a priori come rappresentante di quella classe. In questo modo, poiché il rappresentante scelto e la sequenza in cui si trovano realmente coincidono a meno di un insieme finito, tutti i prigionieri tranne una quantità finita sopravvivono!\footnote{Un ulteriore particolare curioso è che la guardia non può impedire ciò, nemmeno conoscendo la strategia dei prigionieri e nemmeno conoscendo tutti i rappresentanti scelti dai prigionieri.}\\
+
+A primo impatto, la situazione è chiaramente controintuitiva: ci sembra che ogni prigioniero abbia \emph{probabilità} di salvarsi pari a $1/2$, ma alla fine si salvano tutti i prigionieri tranne un numero finito, il che sicuramente non è ``la metà di $\N$'', qualunque sia il modo (sensato) in cui vogliamo interpretare questa espressione.
+
+Cerchiamo ora di capire cosa sta avvenendo da un punto di vista formale\footnote{La seguente spiegazione formale prende spunto dal commento di Terence Tao alla pagina citata sopra. Link diretto al commento: \url{http://cornellmath.wordpress.com/2007/09/13/the-axiom-of-choice-is-wrong/\#comment-606}.}. Possiamo vedere la situazione come il prodotto diretto numerabile di spazi di Bernoulli, ovvero $2^\omega$. Chiamiamo ora $c: 2^\omega \to 2^\omega$ la funzione decisa a priori dai prigionieri che associa ad ogni sequenza un rappresentante della classe di equivalenza, come spiegato sopra. Allora, l'evento ``il $j$-esimo prigioniero sbaglia colore'' è definito formalmente come 
+\[
+E_j=\{x \in 2^\omega : x_j \neq c(x)(j)\}
+\]
+Intuitivamente vorremmo dire che $\PPP(E_j)=1/2$ per ogni $j \in \omega$, dove $\PPP$ è la misura di probabilità di Bernoulli su $2^\omega$. Il problema è che non tutti gli $E_j$ sono misurabili. Mostriamolo: sia $D_n=\bigcup_{k \geq n} E_k$. Allora $\PPP(D_n)=\PPP(\bigcup_{k \geq n} E_k)=1-\PPP(\bigcap_{k \geq n} E_k^c)=1$ per ogni $n \in \omega$, dove l'ultima uguaglianza è giustificata dal fatto che la probabilità di ottenere una qualsiasi fissata sequenza \emph{infinita} nello spazio di Bernoulli è nulla. Osserviamo che $(D_n)_{n \in \omega}$ è una successione decrescente di insiemi. Inoltre ogni $x \in 2^\omega$ appartiene solo ad un numero finito di $E_j$. Quindi $\bigcap_{n \in \omega} D_n = \emptyset$. Se per assurdo gli insiemi $E_j$ fossero tutti misurabili, allora lo sarebbero anche i $D_n$, e quindi per continuità delle misure di probabilità sugli insiemi misurabili avremmo:
+\[
+\lim_{n \to \infty} \PPP(D_n) = \PPP(\emptyset)=0,
+\]
+contraddizione.
+
+%DA CAPIRE: perché allora non posso semplicemente porre P(E_j)=0
+%siamo sicuri che le misure di probabilità sono tutte continue?
+%perché la non misurabilità mi genera il paradosso?
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%bibliografia
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\bibname}
+
+\begin{thebibliography}{3}
+
+\bibitem{Herrlich:Herrlich}
+H. Herrlich. \emph{Axiom of Choice.} Springer Berlin Heidelberg, 2006.
+
+\bibitem{Sch97:Herrlich}
+E. Schechter. \emph{Handbook of Analysis and its Foundation.} Acad. Press, 1997.
+
+\bibitem{Kunen:logica}
+K. Kunen. \emph{Set theory.} College Publications, 2011.
+
+\bibitem{Bor14:Herrlich}
+E. Borel. \emph{Lecons sur la théorie des fonctions} Paris, 1914.
+
+\bibitem{Tar24a:Herrlich}
+A. Tarski. \emph{Sur les ensembles finis.} Fund. Math., 6:45–95, 1924.
+
+\bibitem{Mon75:Herrlich}
+G.P. Monro. \emph{Independence results concerning Dedekind–finite sets.} J. Austral. Math. Soc. (Series A), 19:35–46, 1975.
+
+\bibitem{HoRu98:Herrlich}
+P. Howard and J.E. Rubin. \emph{Consequences of the Axiom of Choice.} Amer. Math. Soc. 1998.
+
+\bibitem{Rus07:Herrlich}
+B. Russell. \emph{On some difficulties in the theory of transfinite numbers and order types.} Proc. London Math. Soc., 49–53, 1907.
+
+\bibitem{Wag86:Herrlich}
+S. Wagon. \emph{The Banach–Tarski Paradox.} Cambr. Univ. Press. Encyl. Mathem. and its Appl. 24, 1986.
+
+\bibitem{Hau14:Herrlich}
+F. Hausdorff. \emph{Grundzüge der Mengenlehre.} Berlin 1914.
+
+\bibitem{Sie48:Herrlich}
+W. Sierpiński. \emph{Sur l'équivalence des ensembles par d écomposition en deux parties.} Fund. Math., 35:151–158, 1948.
+
+\bibitem{Rob47:Herrlich}
+R.M. Robinson. \emph{On the decomposition of spheres.} Fund. Math., 34:246-260, 1947.
+
+\bibitem{BaTa24:Herrlich}
+S. Banach and A. Tarski. \emph{Sur la d écomposition des ensembles de points in parties respectivement congruents.} Fund. Math., 6:244–277, 1924.
+
+\bibitem{vNeu29:Herrlich}
+J. von Neumann. \emph{Zur allgemeinen Theorie des Maßes.} Fund. Math., 30:73-116, 1929.
+
+\bibitem{Bana23:Herrlich}
+S. Banach. \emph{Sur le probléme de la mesure.} Fund. Math., 4:7–33, 1923.
+
+\bibitem{Kar2014:web}
+A. Karagila. \emph{Downward Löwenheim-Skolem Theorems and Choice Principles.}, 2014. \url{http://boolesrings.org/asafk/2014/lowenheim-skolem-choice/}.
+
+\bibitem{Sko22:wiki}
+T. Skolem. \emph{Axiomatized set theory.} 1922. Reprinted in \emph{From Frege to Gödel}, van Heijenoort, 1967, in English translation by Stefan Bauer-Mengelberg, pp. 291–301.
+
+\bibitem{Wil70:Herrlich}
+S. Willard. \emph{General Topology.} Addison–Wesley Publ. Co., 1970.
+
+\bibitem{Ded1888:Herrlich}
+R. Dedekind. \emph{Was sind und was sollen die Zahlen?} Vieweg Verlag, 1888.
+
+\end{thebibliography}
+
+
+
+
+\end{document}
