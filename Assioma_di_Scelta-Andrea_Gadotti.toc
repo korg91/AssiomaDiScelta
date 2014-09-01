@@ -9,7 +9,7 @@
 \contentsline {subsection}{\numberline {0.1.4}Strutture}{3}{subsection.0.1.4}
 \contentsline {subsection}{\numberline {0.1.5}Teorie e modelli}{5}{subsection.0.1.5}
 \contentsline {subsection}{\numberline {0.1.6}La Teoria degli Insiemi di Zermelo-Fraenkel}{6}{subsection.0.1.6}
-\contentsline {section}{\numberline {0.2}Cardinalit\IeC {\`a} e ordinali}{8}{section.0.2}
+\contentsline {section}{\numberline {0.2}Cardinalit\IeC {\`a} e ordinali}{9}{section.0.2}
 \contentsline {chapter}{\numberline {1}Assioma di Scelta e pratica matematica}{11}{chapter.1}
 \contentsline {subsection}{\numberline {1.0.1}Formulazioni alternative}{12}{subsection.1.0.1}
 \contentsline {section}{\numberline {1.1}Principali equivalenti}{13}{section.1.1}
