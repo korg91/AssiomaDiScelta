@@ -1617,19 +1617,20 @@ Intuitivamente, non è possibile elaborare nessuna strategia sensata, dato che n
 
 A primo impatto, la situazione è chiaramente controintuitiva: ci sembra che ogni prigioniero abbia \emph{probabilità} di salvarsi pari a $1/2$, ma alla fine si salvano tutti i prigionieri tranne un numero finito, il che sicuramente non è ``la metà di $\N$'', qualunque sia il modo (sensato) in cui vogliamo interpretare questa espressione.
 
-Cerchiamo ora di capire cosa sta avvenendo da un punto di vista formale\footnote{La seguente spiegazione formale prende spunto dal commento di Terence Tao alla pagina citata sopra. Link diretto al commento: \url{http://cornellmath.wordpress.com/2007/09/13/the-axiom-of-choice-is-wrong/\#comment-606}.}. Possiamo vedere la situazione come il prodotto diretto numerabile di spazi di Bernoulli, ovvero $2^\omega$. Chiamiamo ora $c: 2^\omega \to 2^\omega$ la funzione decisa a priori dai prigionieri che associa ad ogni sequenza un rappresentante della classe di equivalenza, come spiegato sopra. Allora, l'evento ``il $j$-esimo prigioniero sbaglia colore'' è definito formalmente come 
+Cerchiamo ora di capire cosa sta avvenendo da un punto di vista formale\footnote{La seguente spiegazione formale prende spunto dal commento di Terence Tao alla pagina citata sopra. Link diretto al commento: \url{http://cornellmath.wordpress.com/2007/09/13/the-axiom-of-choice-is-wrong/\#comment-606}.}. Possiamo vedere la situazione come il prodotto diretto numerabile di spazi di Bernoulli, ovvero $2^\omega$, dove assumiamo che ogni singola prova di Bernoulli ha parametro $\frac{1}{2}$ (in realtà la struttura della dimostrazione che segue resta valida per qualsiasi parametro positivo). Chiamiamo ora $c: 2^\omega \to 2^\omega$ la funzione decisa a priori dai prigionieri che associa ad ogni sequenza un rappresentante della classe di equivalenza, come spiegato sopra. Allora, l'evento ``il $j$-esimo prigioniero sbaglia colore'' è definito formalmente come 
 \[
 E_j=\{x \in 2^\omega : x_j \neq c(x)(j)\}
 \]
-Intuitivamente vorremmo dire che $\PPP(E_j)=1/2$ per ogni $j \in \omega$, dove $\PPP$ è la misura di probabilità di Bernoulli su $2^\omega$. Il problema è che non tutti gli $E_j$ sono misurabili. Mostriamolo: sia $D_n=\bigcup_{k \geq n} E_k$. Allora $\PPP(D_n)=\PPP(\bigcup_{k \geq n} E_k)=1-\PPP(\bigcap_{k \geq n} E_k^c)=1$ per ogni $n \in \omega$, dove l'ultima uguaglianza è giustificata dal fatto che la probabilità di ottenere una qualsiasi fissata sequenza infinita nello spazio di Bernoulli è nulla. Osserviamo che $(D_n)_{n \in \omega}$ è una successione decrescente di insiemi. Inoltre ogni $x \in 2^\omega$ appartiene solo ad un numero finito di $E_j$. Quindi $\bigcap_{n \in \omega} D_n = \emptyset$. Se per assurdo gli insiemi $E_j$ fossero tutti misurabili, allora lo sarebbero anche i $D_n$, e quindi per continuità delle misure di probabilità sugli insiemi misurabili avremmo:
+Intuitivamente vorremmo dire che $\PPP(E_j)=1/2$ per ogni $j \in \omega$, dove $\PPP$ è la misura di probabilità di Bernoulli su $2^\omega$. Il problema è che non tutti gli $E_j$ sono misurabili. Mostriamolo: supponiamo per assurdo che gli insiemi $E_j$ siano tutti misurabili. Allora osserviamo innanzitutto che $\PPP(E_j)>0$ per ogni $j \in \omega$. Infatti, sia $\overline{x} \in 2^\omega$. Consideriamo 
+\[
+A_{\overline{x}}=\{x \in 2^\omega : x_i=\overline{x}_i \text{ per ogni $i<j$ e } x_j \neq c(\overline{x})(j)\}
+\]
+È chiaro che $A_{\overline{x}} \sse E_j$. Ma, per come è definita la misura di Bernoulli, otteniamo $\PPP(A_{\overline{x}})=(\frac{1}{2})^{j+1}$. Quindi $\PPP(E_j) \geq \PPP(A_{\overline{x}})>0$.
+Sia ora $D_n=\bigcup_{k \geq n} E_k$. Allora $\PPP(D_n) \geq \PPP(E_j)>0$. Osserviamo poi che $(D_n)_{n \in \omega}$ è una successione decrescente di insiemi. Inoltre ogni $x \in 2^\omega$ appartiene solo ad un numero finito di $E_j$. Quindi $\bigcap_{n \in \omega} D_n = \emptyset$. Poiché per ipotesi gli insiemi $E_j$ sono tutti misurabili, allora lo sono anche i $D_n$, e quindi per continuità delle misure di probabilità sugli insiemi misurabili abbiamo:
 \[
 \lim_{n \to \infty} \PPP(D_n) = \PPP(\emptyset)=0,
 \]
 contraddizione.
-
-%DA CAPIRE: perché allora non posso semplicemente porre P(E_j)=0
-%siamo sicuri che le misure di probabilità sono tutte continue?
-%perché la non misurabilità mi genera il paradosso?
 
 
 
