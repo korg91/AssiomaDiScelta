@@ -32,4 +32,4 @@
 \contentsline {paragraph}{Notazione e nozioni di base}{45}{section*.6}
 \contentsline {subsection}{\numberline {4.0.6}Il paradosso di Skolem}{47}{subsection.4.0.6}
 \contentsline {chapter}{\numberline {5}Cappelli e prigionieri}{49}{chapter.5}
-\contentsline {chapter}{Bibliografia}{53}{chapter*.7}
+\contentsline {chapter}{Bibliografia}{54}{chapter*.7}

@@ -616,7 +616,7 @@ Si osservi che la proposizione appena mostrata mette in luce come \AC sia talvol
 
 Il prossimo risultato è un esempio in qualche modo opposto: il fatto che ogni insieme sia bene ordinabile appare qualcosa di poco chiaro, e forse addirittura in contrasto con la nostra intuizione matematica\footnote{Si provi a immaginare un buon ordine su $\R$.}. Questa sensazione di ``disorientamento'' si può riassumere in una paradossale citazione di J.L. Bona: \emph{``The Axiom of Choice is obviously true, the Well–Ordering Principle is obviously false; and who can tell about Zorn’s Lemma''}\footnote{\cite{Sch97:Herrlich}, p. 145}.
 
-\begin{teo}\label{AC-WOT}
+\begin{teo}\label{AC-WOT} Sono equivalenti:
 \begin{equivalence}
 \punto{1} \AC
 \punto{2} Ogni insieme è in biezione con un ordinale.
@@ -634,7 +634,7 @@ Mostreremo adesso che \AC è equivalente ad altri due principi frequentemente ut
 \begin{teo} Sono equivalenti:
 \begin{equivalence}
 \punto{1} \AC;
-\punto{2} \textbf{Principio di massimalità di Hausdorff:} Ogni insieme non vuoto parzialmente ordinato contiene una catena\footnote{In un insieme parzialmente ordinato $X$, si dice \emph{catena} una successione $(x_n)_{n \in \N}$ in $X$ tale che $x_n \leq x_{n+1}$ per ogni $n \in \N$.} massimale;
+\punto{2} \textbf{Principio di massimalità di Hausdorff:} Ogni insieme non vuoto parzialmente ordinato contiene una catena\footnote{In un insieme parzialmente ordinato $X$, un sottoinsieme $C \sse X$ si dice \emph{catena} se è linearmente ordinato, i.e. se $\forall x,y \in C \ (x \leq y \vee y \leq x)$.} massimale;
 \punto{3} \textbf{Lemma di Zorn:} Ogni insieme non vuoto parzialmente ordinato in cui ogni catena ha un maggiorante, contiene un elemento massimale.
 \end{equivalence}
 \begin{proof}\ \\
@@ -667,7 +667,7 @@ Si ha che $G' \in \mathcal{F}$ e $G' \supsetneq G$, assurdo.
 
 \section{C'è, ma non si vede}
 
-Spesso non è immediato individuare un eventuale ricorso dell'Assioma di Scelta all'interno di una dimostrazione. Talvolta, persino lo stesso autore della dimostrazione non è consapevole di averlo usato. A prova di questo fatto, citiamo ad esempio Borel, il quale, pur rifiutando \AC per famiglie non numerabili di insiemi\footnote{\label{cit_borel}\emph{``The last concept [\AC] seems to me to be entirely devoid of sense. As regards a denumerable infinity of choices, they cannot, of course, all be performed, but we can at least indicate such a procedure that, if we establish it beforehand, we may be sure that each choice will be made within a finite period of time; therefore, if two given systems of choice are different, we are sure to notice this after a finite number of operations. When an infinite number of choices is not denumerable, it is impossible to imagine a way of defining it, i.e., distinguishing it from an analogous infinite number of choices; thus it is impossible to regard it as a mathematical creation which can be introduced in arguments.''} E. Borel, \cite{Bor14:Herrlich}}, lo utilizzò applicandolo proprio a una famiglia di cardinalità $2^{\aleph_0}$ per dimostrare che esistono funzioni continue reali di variabile reale che non possono essere rappresentate come serie doppie di polinomi. Lo stesso accadde a Lebesgue: nonostante si dichiarasse esplicitamente critico nei confronti di \AC, lo usò per dimostrare che l'unione numerabile di sottoinsiemi misurabili di $\R$ è misurabile.\\
+Spesso non è immediato individuare un eventuale ricorso dell'Assioma di Scelta all'interno di una dimostrazione. Talvolta, persino lo stesso autore della dimostrazione non è consapevole di averlo usato. A prova di questo fatto, citiamo ad esempio Borel, il quale, pur rifiutando \AC per famiglie non numerabili di insiemi\footnote{\label{cit_borel}\emph{``The last concept $[\AC]$ seems to me to be entirely devoid of sense. As regards a denumerable infinity of choices, they cannot, of course, all be performed, but we can at least indicate such a procedure that, if we establish it beforehand, we may be sure that each choice will be made within a finite period of time; therefore, if two given systems of choice are different, we are sure to notice this after a finite number of operations. When an infinite number of choices is not denumerable, it is impossible to imagine a way of defining it, i.e., distinguishing it from an analogous infinite number of choices; thus it is impossible to regard it as a mathematical creation which can be introduced in arguments.''} E. Borel, \cite{Bor14:Herrlich}}, lo utilizzò applicandolo proprio a una famiglia di cardinalità $2^{\aleph_0}$ per dimostrare che esistono funzioni continue reali di variabile reale che non possono essere rappresentate come serie doppie di polinomi. Lo stesso accadde a Lebesgue: nonostante si dichiarasse esplicitamente critico nei confronti di \AC, lo usò per dimostrare che l'unione numerabile di sottoinsiemi misurabili di $\R$ è misurabile.\\
 \\
 Vediamo allora un esempio alquanto istruttivo di una dimostrazione che appare costruttiva, ma che in realtà non lo è.
 
@@ -796,7 +796,7 @@ Consideriamo un modello di \ZF con la seguente proprietà:
 \begin{center}
 Esiste una sequenza $(X_n)_{n \in \N}$ di insiemi mutualmente disgiunti formati da due elementi, i.e. $X_n=\{x_n,y_n\}$, tale che $X=\bigcup_{n \in \N} X_n$ è D-finito.
 \end{center}
-Si dimostra che un tale modello esiste\footnote{Ad esempio il modello N2(2) in \cite{HoRu98:Herrlich}. È chiaro che in tale modello non può esistere una funzione di scelta $C$ di $\N$ su $\{X_n \mid n \in \N\}$, perché altrimenti $f: \N \to X$, $n \mapsto C(X_n)$ sarebbe una funzione iniettiva, ovvero $X$ sarebbe D-finito per la Proposizione \ref{caratt_d-fin}.} (e non soddisfa \AC). Mostriamo ora che questo modello soddisfa tutti gli enunciati in questione:
+Si dimostra che un tale modello esiste\footnote{Ad esempio il modello N2(2) in \cite{HoRu98:Herrlich}. È chiaro che in tale modello non può esistere una funzione di scelta $C$ di $\N$ su $\{X_n \mid n \in \N\}$, perché altrimenti $f: \N \to X$, $n \mapsto C(X_n)$ sarebbe una funzione iniettiva, ovvero $X$ sarebbe D-infinito per la Proposizione \ref{caratt_d-fin}.} (e non soddisfa \AC). Mostriamo ora che questo modello soddisfa tutti gli enunciati in questione:
 \begin{enumerate}
 \item Per ogni $z \in X$, consideriamo l'insieme $Y_z = \{z,n\}$, dove $n \in \N$ è l'unico naturale tale che $z \in X_n$. Allora $Y= \bigcup_{z \in X} Y_z$ è unione D-finita di insiemi D-finiti. Ma $Y = \N \cup \bigcup_n X_n$ è D-infinito, dato che la funzione $f: \N \to Y$ definita da $f(n)=n$ è ovviamente iniettiva.
 \item Nonostante $X$ sia D-finito, il suo insieme delle parti $\PP(X)$ è D-infinito. Infatti la funzione $f: \N \to \PP(X)$ definita da $f(n) = \displaystyle\bigcup_{m \leq n} X_m$ è iniettiva.
@@ -897,7 +897,7 @@ Per costruzione di $n^*$, è chiaro che in entrambi i casi $g(n) \neq \emptyset$
 \begin{proof} \ \\
 \Implies{1}{2}: Segue banalmente dall'Osservazione \ref{oss_fin=t-fin}.\\
 \Implies{2}{3}: Sia $X$ D-finito e sia $f: X \to Y$ suriettiva. Allora $Y=\bigcup_{x \in X} \{f(x)\}$ è unione D-finita di insiemi D-finiti, quindi D-finita.\\
-\Implies{3}{4}: Supponiamo $\PP(X)$ D-finito. Allora, grazie al lemma precedente esiste $f: X \to \N$ suriettiva. Poiché $\N$ è D-infinito, per ipotesi abbiamo che $X$ è D-infinito.\\
+\Implies{3}{4}: Supponiamo $\PP(X)$ D-infinito. Allora, grazie al lemma precedente esiste $f: X \to \N$ suriettiva. Poiché $\N$ è D-infinito, per ipotesi abbiamo che $X$ è D-infinito.\\
 \Implies{4}{1}: È sufficiente mostrare che ogni insieme infinito è D-infinito. Sia allora $X$ infinito. La funzione $f: \N \to \PP(\PP(X))$ definita da $f(n)=\{A \subseteq X \mid |A|=n\}$ è iniettiva. Quindi $\PP(\PP(X))$ è D-infinito. Per ipotesi, otteniamo che $\PP(X)$ è D-infinito. Di nuovo per ipotesi, anche $X$ è D-infinito.\\
 $\text{\ref{statement1}}\!\iff\!\text{\ref{statement5}}$: Se ogni insieme infinito è D-infinito, allora per ogni insieme infinito $X$ vale $\aleph_0 \leq |X|$, mentre ovviamente $|X| \leq \aleph_0$ se $X$ è finito. Viceversa, se $X$ è un insieme infinito, allora si ha necessariamente $\aleph_0 \leq |X|$, dato che $|A|<\aleph_0 \imp A$ finito, per ogni insieme $A$.
 \end{proof}
@@ -923,12 +923,12 @@ L'ultimo risultato della sezione ci restituisce finalmente un po' di serenità:
 \begin{prop} 
 Se vale \AC, finito = D-finito.
 \begin{proof}
-È sufficiente mostrare che ogni insieme infinito $X$ è D-infinito. Se $X$ è infinito allora, per ogni $n \in \N$, l'insieme $X_n$ di tutte le $n$-uple iniettive $\overrightarrow{t_n} = (x_1,...,x_n)$ di $X$ è non vuoto\footnote{La dimostrazione è immediata per induzione: supponiamo di aver definito $f: \{1,...,n\} \to X$ iniettiva. Se $X \sm \ran(f) \neq \emptyset$, allora estendiamo $f$ mandando $n+1$ in un qualsiasi elemento che non sta nell'immagine. Se per assurdo $X \sm \ran(f) = \emptyset$, allora $f$ è una biezione, contro l'ipotesi di $X$ infinito.}. Allora, per \AC esiste una sequenza di tuple 
+È sufficiente mostrare che ogni insieme infinito $X$ è D-infinito. Se $X$ è infinito allora, per ogni $n \in \N$, l'insieme $X_n$ di tutte le $n$-uple iniettive $\overrightarrow{t_n} = (x_1,...,x_n)$ di $X$ è non vuoto\footnote{La dimostrazione è immediata per induzione: supponiamo di aver definito $f: \{1,...,n\} \to X$ iniettiva. Se $X \sm \ran(f) \neq \emptyset$, allora estendiamo $f$ mandando $n+1$ in un qualsiasi elemento che non sta nell'immagine. Se per assurdo $X \sm \ran(f) = \emptyset$, allora $f$ è una biezione, contro l'ipotesi di $X$ infinito.}. Allora per \AC esiste una sequenza di tuple 
 \[
 \left(\overrightarrow{t_n}\right)_{n \in \N} \in \times_{n \in \N} X_n.
 \]
 La concatenazione di tutte le $\overrightarrow{t_n}$ definisce una successione $(s_n)_{n \in \N}$ in $X$ che ha immagine infinita (più precisamente: se $\overrightarrow{t_n}=(x_1^n,...,x_n^n)$, allora $s_{n \frac{(n+1)}{2}+k} = x_k^{n+1}$ con $n \in \N$ e $k \in \{1,...,n+1\}$).\\
-La successione $(s'_n)_{n \in \N}$ ottenuta ``cancellando'' tutti i termini ripetuti di $s_n$ è ovviamente una funzione iniettiva $\N \to X$ (più precisamente: $s'_n := s_{\min\{k \mid s_k \not\in \{s'_m \mid m<n\}\}}$). Quindi $X$ è D-infinito.
+La successione $(s'_n)_{n \in \N}$ ottenuta ``cancellando'' tutti i termini ripetuti di $s_n$ è ovviamente una funzione iniettiva $\N \to X$ (più precisamente: $s'_n = s_{\min\{k \mid s_k \not\in \{s'_m \mid m<n\}\}}$). Quindi $X$ è D-infinito.
 \end{proof}
 \end{prop}
 
@@ -1557,11 +1557,11 @@ L'esistenza di un tale insieme è evidente. Possiamo vedere $(X,\varrho)$ come u
 \forall x \exists y (x \varrho y).
 \]
 Per ipotesi esiste $(X',\varrho')$ sottostruttura elementare numerabile di $(X,\varrho)$. Per elementarità anche $X'$ soddisfa $\forall x \exists y (x \varrho' y)$. Quindi per il Lemma \ref{DC_num} esiste una successione $(x_n)_{n \in \N}$ in $X'$ tale che $x_n \varrho' x_{n+1}$ per ogni $n \in \N$. Poiché $X' \sse X$, $(x_n)_{n \in \N}$ è una successione anche in $X$. Inoltre, per definizione di sottostruttura, $\varrho'$ e $\varrho$ coincidono sugli elementi di $X'$, e quindi su tutti gli elementi di $(x_n)_{n \in \N}$. Perciò $x_n \varrho x_{n+1}$ per ogni $n \in \N$.\\
-\Implies{2}{1} Sia $\LL$ un linguaggio numerabile e sia $T$ una $\LL$-teoria. Sia $\M$ un modello infinito per $T$. Possiamo assumere senza perdità di generalità che $\LL$ contenga solo simboli relazionali. Infatti, possiamo vedere i simboli di costante semplicemente come relazioni $0$-arie. Inoltre, possiamo vedere le funzioni come relazioni (ricordiamo che le funzioni \emph{sono} relazioni, per le quali si aggiunge la richiesta di esistenza e unicità dell'immagine). Poiché, se $\cal R$ è una relazione, affermare che ``$\cal R$ è una funzione'' è esprimibile al prim'ordine mediante la formula $\forall \vec x \, \exists ! y R(\vec x, y)$, questa è preservata per sottostrutture elementari, e quindi $\cal R$ sarà una funzione anche nella sottostruttura elementare trovata.
+\Implies{2}{1} Sia $\LL$ un linguaggio numerabile e sia $T$ una $\LL$-teoria. Sia $\M$ un modello infinito per $T$. Vogliamo trovare una sottostruttura elementare $\U$ di $\M$. Possiamo assumere senza perdità di generalità che $\LL$ contenga solo simboli relazionali. Infatti, possiamo vedere i simboli di costante semplicemente come relazioni $0$-arie. Inoltre, possiamo vedere le funzioni come relazioni (ricordiamo che le funzioni \emph{sono} relazioni, per le quali si aggiunge la richiesta di esistenza e unicità dell'immagine). Se $\cal R$ è una relazione, affermare che ``$\cal R$ è una funzione'' è esprimibile al prim'ordine mediante la formula $\forall \vec x \, \exists ! y R(\vec x, y)$. Allora, se $\cal R$ è una funzione in $\M$, tale formula è vera in $\M$, e quindi per ipotesi vale anche in $\U$, e perciò $\cal R$ sarà una funzione anche in $\U$.
 
 Definiremo simultaneamente per induzione una successione crescente di sottostrutture di $\M$ e una successione di famiglie di funzioni di Skolem. Il modo in cui definiremo questi oggetti ci permetterà di dimostrare che l'unione di tutte le sottostrutture è una sottostruttura elementare di $\M$. Tale sottostruttura sarà banalmente numerabile per costruzione.
 
-Sia $A_0= \emptyset$. Per ogni $\phi$ scegliamo una $A_0$-funzione di Skolem e chiamiamo $F_0$ la famiglia di tutte queste funzioni. Si osservi che possiamo effettuare questa scelta grazie a \CC, dato che le formule in un linguaggio numerabile sono in quantità numerabile\footnote{Se il lettore ritiene poco chiara questa affermazione, osservi che le formule si possono interpretare come stringhe finite.}. 
+Sia $A_0= \emptyset$. Per ogni $\phi$ scegliamo una $A_0$-funzione di Skolem e chiamiamo $F_0$ la famiglia di tutte queste funzioni. Si osservi che possiamo effettuare questa scelta grazie a \CC, dato che le formule in un linguaggio numerabile sono in quantità numerabile\footnote{Se il lettore ritiene poco chiara questa affermazione, osservi che le formule si possono interpretare come stringhe finite su un alfabeto finito.}. 
 
 Supponiamo ora che $A_k$ e $F_k$ siano stati definiti e siano tali che
 \begin{itemize}
@@ -1622,14 +1622,31 @@ A primo impatto, la situazione è chiaramente controintuitiva: ci sembra che ogn
 
 Cerchiamo ora di capire cosa sta avvenendo da un punto di vista formale\footnote{La seguente spiegazione formale prende spunto dal commento di Terence Tao alla pagina citata sopra. Link diretto al commento: \url{http://cornellmath.wordpress.com/2007/09/13/the-axiom-of-choice-is-wrong/\#comment-606}.}. Possiamo vedere la situazione come il prodotto diretto numerabile di spazi di Bernoulli, ovvero $2^\omega$, dove assumiamo che ogni singola prova di Bernoulli ha parametro $\frac{1}{2}$ (in realtà la struttura della dimostrazione che segue resta valida per qualsiasi parametro positivo). Chiamiamo ora $c: 2^\omega \to 2^\omega$ la funzione decisa a priori dai prigionieri che associa ad ogni sequenza un rappresentante della classe di equivalenza, come spiegato sopra. Allora, l'evento ``il $j$-esimo prigioniero sbaglia colore'' è definito formalmente come 
 \[
-E_j=\{x \in 2^\omega : x_j \neq c(x)(j)\}
+E_j=\{x \in 2^\omega : x(j) \neq c(x)(j)\}
 \]
 Intuitivamente vorremmo dire che $\PPP(E_j)=1/2$ per ogni $j \in \omega$, dove $\PPP$ è la misura di probabilità di Bernoulli su $2^\omega$. Il problema è che non tutti gli $E_j$ sono misurabili. Mostriamolo: supponiamo per assurdo che gli insiemi $E_j$ siano tutti misurabili. Allora osserviamo innanzitutto che $\PPP(E_j)>0$ per ogni $j \in \omega$. Infatti, sia $\overline{x} \in 2^\omega$. Consideriamo 
 \[
-A_{\overline{x}}=\{x \in 2^\omega : x_i=\overline{x}_i \text{ per ogni $i<j$ e } x_j \neq c(\overline{x})(j)\}
+A_{\overline{x}}=\{x \in 2^\omega : x(i)=\overline{x}(i) \text{ per ogni $i<j$ e } x(j) = 1- c(\overline{x})(j)\}
 \]
-È chiaro che $A_{\overline{x}} \sse E_j$. Ma, per come è definita la misura di Bernoulli, otteniamo $\PPP(A_{\overline{x}})=(\frac{1}{2})^{j+1}$. Quindi $\PPP(E_j) \geq \PPP(A_{\overline{x}})>0$.
-Sia ora $D_n=\bigcup_{k \geq n} E_k$. Allora $\PPP(D_n) \geq \PPP(E_j)>0$. Osserviamo poi che $(D_n)_{n \in \omega}$ è una successione decrescente di insiemi. Inoltre ogni $x \in 2^\omega$ appartiene solo ad un numero finito di $E_j$. Quindi $\bigcap_{n \in \omega} D_n = \emptyset$. Poiché per ipotesi gli insiemi $E_j$ sono tutti misurabili, allora lo sono anche i $D_n$, e quindi per continuità delle misure di probabilità sugli insiemi misurabili abbiamo:
+È chiaro che $A_{\overline{x}} \sse E_j$. Ma, per come è definita la misura di Bernoulli, otteniamo $\PPP(A_{\overline{x}})=(\frac{1}{2})^{j+1}$. Quindi $\PPP(E_j) \geq \PPP(A_{\overline{x}}) \geq (\frac{1}{2})^{j+1}$.\\
+Sia ora $D_n=\bigcup_{k \geq n} E_k$. Vogliamo trovare degli $A_{s_k}$ tali che per ogni $k,w \in \omega$ distinti si abbia $A_{s_k} \sse E_k$ e $A_{s_k} \cap A_{s_w} = \emptyset$. Per fare questo definiamo $(s_k)_{k \in \omega}$ ad hoc, nel seguente modo:
+\[
+s_{k}(j)= 
+  \begin{cases} 
+      \hfill c(0^\omega)(j)		\hfill & \text{ se $j \leq k$} \\
+      \hfill 0					\hfill & \text{ se $j>k+1$.} \\
+  \end{cases}
+\]
+Perciò, definendo per ogni $k \in \omega$ in modo simile a prima
+\[
+A_{s_k}=\{x \in 2^\omega : x(i)=s_k(i) \text{ per ogni $i<k$ e } x(j) = 1- s_k(k)\}
+\]
+otteniamo banalmente $A_{s_k} \sse E_k$ e $A_{s_k} \cap A_{s_w} = \emptyset$, come richiesto. Inoltre, $\PPP(A_{s_k})=(\frac{1}{2})^{k+1}$.
+Allora 
+\[
+\PPP(D_n) = \PPP\left(\bigcup_{k \geq n} E_k\right) \geq \PPP\left(\bigcup_{k \geq n} A_{s_k}\right) = \sum_{k=n}^\infty \left(\frac{1}{2}\right)^{k+1} = \left(\frac{1}{2}\right)^{n}
+\]
+Osserviamo poi che $(D_n)_{n \in \omega}$ è una successione decrescente di insiemi. Inoltre ogni $x \in 2^\omega$ appartiene solo ad un numero finito di $E_j$. Quindi $\bigcap_{n \in \omega} D_n = \emptyset$. Poiché per ipotesi gli insiemi $E_j$ sono tutti misurabili, allora lo sono anche i $D_n$, e quindi per continuità delle misure di probabilità sugli insiemi misurabili abbiamo:
 \[
 \lim_{n \to \infty} \PPP(D_n) = \PPP(\emptyset)=0,
 \]
